@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="AnbarPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.entity.Maganfir</class>
+    <class>com.entity.Members</class>
+    <class>com.entity.Mallar</class>
+    <class>com.entity.Malsinfi</class>
+    <class>com.entity.Magazamubadile</class>
+    <class>com.entity.Malsatisgeriqay</class>
+    <class>com.entity.Malqrupu</class>
+    <class>com.entity.Properties</class>
+    <class>com.entity.Kassa</class>
+    <class>com.entity.Malnovu</class>
+    <class>com.entity.Zayitmis</class>
+    <class>com.entity.Debitor</class>
+    <class>com.entity.Kreditor</class>
+    <class>com.entity.Malalisqeyiqayt</class>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/anbar?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="123456"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="eclipselink.query-results-cache" value="false"/>
+    </properties>
+  </persistence-unit>
+</persistence>
