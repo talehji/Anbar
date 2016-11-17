@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -65,27 +66,27 @@ public class Malsatisgeriqay implements Serializable {
     @Basic(optional = false)
     @Column(name = "Qeyd")
     private String qeyd;
-    @JoinColumn(name = "IdKassaSatis", referencedColumnName = "idKassa")
-    @ManyToOne(optional = false)
-    private Kassa idKassaSatis;
-    @JoinColumn(name = "idKassaEDV", referencedColumnName = "idKassa")
-    @ManyToOne(optional = false)
-    private Kassa idKassaEDV;
-    @JoinColumn(name = "idMembersSatanAlan", referencedColumnName = "idMembers")
-    @ManyToOne(optional = false)
-    private Members idMembersSatanAlan;
-    @JoinColumn(name = "IdMembesSenedYigan", referencedColumnName = "idMembers")
-    @ManyToOne(optional = false)
-    private Members idMembesSenedYigan;
     @JoinColumn(name = "idMagaza", referencedColumnName = "idMagAnFir")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Maganfir idMagaza;
     @JoinColumn(name = "idMallar", referencedColumnName = "idMallar")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Mallar idMallar;
     @JoinColumn(name = "idProperties", referencedColumnName = "idProperties")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Properties idProperties;
+    @JoinColumn(name = "IdKassaSatis", referencedColumnName = "idKassa")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Kassa idKassaSatis;
+    @JoinColumn(name = "idKassaEDV", referencedColumnName = "idKassa")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Kassa idKassaEDV;
+    @JoinColumn(name = "idMembersSatanAlan", referencedColumnName = "idMembers")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Members idMembersSatanAlan;
+    @JoinColumn(name = "IdMembesSenedYigan", referencedColumnName = "idMembers")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Members idMembesSenedYigan;
 
     public Malsatisgeriqay() {
     }
@@ -160,6 +161,30 @@ public class Malsatisgeriqay implements Serializable {
         this.qeyd = qeyd;
     }
 
+    public Maganfir getIdMagaza() {
+        return idMagaza;
+    }
+
+    public void setIdMagaza(Maganfir idMagaza) {
+        this.idMagaza = idMagaza;
+    }
+
+    public Mallar getIdMallar() {
+        return idMallar;
+    }
+
+    public void setIdMallar(Mallar idMallar) {
+        this.idMallar = idMallar;
+    }
+
+    public Properties getIdProperties() {
+        return idProperties;
+    }
+
+    public void setIdProperties(Properties idProperties) {
+        this.idProperties = idProperties;
+    }
+
     public Kassa getIdKassaSatis() {
         return idKassaSatis;
     }
@@ -190,30 +215,6 @@ public class Malsatisgeriqay implements Serializable {
 
     public void setIdMembesSenedYigan(Members idMembesSenedYigan) {
         this.idMembesSenedYigan = idMembesSenedYigan;
-    }
-
-    public Maganfir getIdMagaza() {
-        return idMagaza;
-    }
-
-    public void setIdMagaza(Maganfir idMagaza) {
-        this.idMagaza = idMagaza;
-    }
-
-    public Mallar getIdMallar() {
-        return idMallar;
-    }
-
-    public void setIdMallar(Mallar idMallar) {
-        this.idMallar = idMallar;
-    }
-
-    public Properties getIdProperties() {
-        return idProperties;
-    }
-
-    public void setIdProperties(Properties idProperties) {
-        this.idProperties = idProperties;
     }
 
     @Override

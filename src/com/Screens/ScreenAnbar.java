@@ -4,23 +4,20 @@ import com.entity.Maganfir;
 import java.awt.Font;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.table.DefaultTableModel;
 
 public final class ScreenAnbar extends javax.swing.JDialog {
 
-    private final EntityManager em;
+    EntityManager em;
     private List<Maganfir> ListOfMaganfir;
     private Maganfir selectedMagaza;
 
-    public ScreenAnbar(java.awt.Frame parent, boolean modal) {
+    public ScreenAnbar(java.awt.Frame parent, boolean modal, EntityManager em) {
         super(parent, modal);
         initComponents();
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("AnbarPU");
-        em = emf.createEntityManager();
-        em.getEntityManagerFactory().getCache().evictAll();
-
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("AnbarPU");
+//        em = emf.createEntityManager();
+        this.em = em;
         FillAnbarTable();
     }
 
@@ -148,8 +145,9 @@ public final class ScreenAnbar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ScreenAnbarAddEdit d = new ScreenAnbarAddEdit(null, rootPaneCheckingEnabled, null);
+        ScreenAnbarAddEdit d = new ScreenAnbarAddEdit(null, rootPaneCheckingEnabled, null, em);
         d.setVisible(true);
+        em.clear();
         FillAnbarTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -157,8 +155,9 @@ public final class ScreenAnbar extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) jTableAnbar.getModel();
         int index = jTableAnbar.getSelectedRow();
         selectedMagaza = ListOfMaganfir.get(index);
-        ScreenAnbarAddEdit d = new ScreenAnbarAddEdit(null, rootPaneCheckingEnabled, selectedMagaza);
+        ScreenAnbarAddEdit d = new ScreenAnbarAddEdit(null, rootPaneCheckingEnabled, selectedMagaza, em);
         d.setVisible(true);
+        em.clear();
         FillAnbarTable();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -167,8 +166,9 @@ public final class ScreenAnbar extends javax.swing.JDialog {
             DefaultTableModel model = (DefaultTableModel) jTableAnbar.getModel();
             int index = jTableAnbar.getSelectedRow();
             selectedMagaza = ListOfMaganfir.get(index);
-            ScreenAnbarAddEdit d = new ScreenAnbarAddEdit(null, rootPaneCheckingEnabled, selectedMagaza);
+            ScreenAnbarAddEdit d = new ScreenAnbarAddEdit(null, rootPaneCheckingEnabled, selectedMagaza, em);
             d.setVisible(true);
+            em.clear();
             FillAnbarTable();
         }
     }//GEN-LAST:event_jTableAnbarMouseClicked

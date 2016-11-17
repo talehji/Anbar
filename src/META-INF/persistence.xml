@@ -16,6 +16,7 @@
     <class>com.entity.Debitor</class>
     <class>com.entity.Kreditor</class>
     <class>com.entity.Malalisqeyiqayt</class>
+    <class>com.entity.Mainproperties</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/anbar?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

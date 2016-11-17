@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,17 +50,17 @@ public class Mallar implements Serializable {
     @Basic(optional = false)
     @Column(name = "Miqdari")
     private String miqdari;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar", fetch = FetchType.LAZY)
     private Collection<Magazamubadile> magazamubadileCollection;
     @JoinColumn(name = "idMalNovu", referencedColumnName = "idMalNovu")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Malnovu idMalNovu;
     @JoinColumn(name = "idProperties", referencedColumnName = "idProperties")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Properties idProperties;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar", fetch = FetchType.LAZY)
     private Collection<Malsatisgeriqay> malsatisgeriqayCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar", fetch = FetchType.LAZY)
     private Collection<Zayitmis> zayitmisCollection;
 
     public Mallar() {

@@ -6,9 +6,12 @@
 package com.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,8 +19,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -53,9 +58,17 @@ public class Maganfir implements Serializable {
     @Basic(optional = false)
     @Column(name = "PairentId")
     private String pairentId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFirma", fetch = FetchType.LAZY)
+    private Collection<Kreditor> kreditorCollection;
     @JoinColumn(name = "idMembers", referencedColumnName = "idMembers")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Members idMembers;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMagazaVeren", fetch = FetchType.LAZY)
+    private Collection<Magazamubadile> magazamubadileCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMagazaAlan", fetch = FetchType.LAZY)
+    private Collection<Magazamubadile> magazamubadileCollection1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMagaza", fetch = FetchType.LAZY)
+    private Collection<Malsatisgeriqay> malsatisgeriqayCollection;
 
     public Maganfir() {
     }
@@ -112,12 +125,48 @@ public class Maganfir implements Serializable {
         this.pairentId = pairentId;
     }
 
+    @XmlTransient
+    public Collection<Kreditor> getKreditorCollection() {
+        return kreditorCollection;
+    }
+
+    public void setKreditorCollection(Collection<Kreditor> kreditorCollection) {
+        this.kreditorCollection = kreditorCollection;
+    }
+
     public Members getIdMembers() {
         return idMembers;
     }
 
     public void setIdMembers(Members idMembers) {
         this.idMembers = idMembers;
+    }
+
+    @XmlTransient
+    public Collection<Magazamubadile> getMagazamubadileCollection() {
+        return magazamubadileCollection;
+    }
+
+    public void setMagazamubadileCollection(Collection<Magazamubadile> magazamubadileCollection) {
+        this.magazamubadileCollection = magazamubadileCollection;
+    }
+
+    @XmlTransient
+    public Collection<Magazamubadile> getMagazamubadileCollection1() {
+        return magazamubadileCollection1;
+    }
+
+    public void setMagazamubadileCollection1(Collection<Magazamubadile> magazamubadileCollection1) {
+        this.magazamubadileCollection1 = magazamubadileCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Malsatisgeriqay> getMalsatisgeriqayCollection() {
+        return malsatisgeriqayCollection;
+    }
+
+    public void setMalsatisgeriqayCollection(Collection<Malsatisgeriqay> malsatisgeriqayCollection) {
+        this.malsatisgeriqayCollection = malsatisgeriqayCollection;
     }
 
     @Override

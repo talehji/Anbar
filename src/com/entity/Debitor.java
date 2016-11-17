@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,19 +55,19 @@ public class Debitor implements Serializable {
     @Column(name = "Qeyd")
     private String qeyd;
     @JoinColumn(name = "idMembers", referencedColumnName = "idMembers")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Members idMembers;
     @JoinColumn(name = "idKassa", referencedColumnName = "idKassa")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Kassa idKassa;
     @JoinColumn(name = "idMembersAlan", referencedColumnName = "idMembers")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Members idMembersAlan;
     @JoinColumn(name = "idMembersSenedYigan", referencedColumnName = "idMembers")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Members idMembersSenedYigan;
     @JoinColumn(name = "idMembersTesdiqEden", referencedColumnName = "idMembers")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Members idMembersTesdiqEden;
 
     public Debitor() {

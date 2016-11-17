@@ -5,8 +5,6 @@
  */
 package com.entity;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -14,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +24,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -47,12 +45,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Members.findByIsActive", query = "SELECT m FROM Members m WHERE m.isActive = :isActive")
     , @NamedQuery(name = "Members.findByTarix", query = "SELECT m FROM Members m WHERE m.tarix = :tarix")})
 public class Members implements Serializable {
-
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembers")
-    private Collection<Maganfir> maganfirCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -82,38 +74,40 @@ public class Members implements Serializable {
     @Column(name = "Tarix")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tarix;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersOdeyen")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersOdeyen", fetch = FetchType.LAZY)
     private Collection<Kreditor> kreditorCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersSenedYigan")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersSenedYigan", fetch = FetchType.LAZY)
     private Collection<Kreditor> kreditorCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersTesdiqEden")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersTesdiqEden", fetch = FetchType.LAZY)
     private Collection<Kreditor> kreditorCollection2;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersVeren")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembers", fetch = FetchType.LAZY)
+    private Collection<Maganfir> maganfirCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersVeren", fetch = FetchType.LAZY)
     private Collection<Magazamubadile> magazamubadileCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersAlan")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersAlan", fetch = FetchType.LAZY)
     private Collection<Magazamubadile> magazamubadileCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersSenedYigan")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersSenedYigan", fetch = FetchType.LAZY)
     private Collection<Magazamubadile> magazamubadileCollection2;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersTesdiqEden")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersTesdiqEden", fetch = FetchType.LAZY)
     private Collection<Magazamubadile> magazamubadileCollection3;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembers")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembers", fetch = FetchType.LAZY)
     private Collection<Debitor> debitorCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersAlan")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersAlan", fetch = FetchType.LAZY)
     private Collection<Debitor> debitorCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersSenedYigan")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersSenedYigan", fetch = FetchType.LAZY)
     private Collection<Debitor> debitorCollection2;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersTesdiqEden")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersTesdiqEden", fetch = FetchType.LAZY)
     private Collection<Debitor> debitorCollection3;
     @JoinColumn(name = "idProperties", referencedColumnName = "idProperties")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Properties idProperties;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersSatanAlan")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersSatanAlan", fetch = FetchType.LAZY)
     private Collection<Malsatisgeriqay> malsatisgeriqayCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembesSenedYigan")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembesSenedYigan", fetch = FetchType.LAZY)
     private Collection<Malsatisgeriqay> malsatisgeriqayCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersSenedYigan")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersSenedYigan", fetch = FetchType.LAZY)
     private Collection<Zayitmis> zayitmisCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersTesdiqEden")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersTesdiqEden", fetch = FetchType.LAZY)
     private Collection<Zayitmis> zayitmisCollection1;
 
     public Members() {
@@ -139,9 +133,7 @@ public class Members implements Serializable {
     }
 
     public void setIdMembers(Integer idMembers) {
-        Integer oldIdMembers = this.idMembers;
         this.idMembers = idMembers;
-        changeSupport.firePropertyChange("idMembers", oldIdMembers, idMembers);
     }
 
     public String getAdi() {
@@ -149,9 +141,7 @@ public class Members implements Serializable {
     }
 
     public void setAdi(String adi) {
-        String oldAdi = this.adi;
         this.adi = adi;
-        changeSupport.firePropertyChange("adi", oldAdi, adi);
     }
 
     public String getSoyadi() {
@@ -159,9 +149,7 @@ public class Members implements Serializable {
     }
 
     public void setSoyadi(String soyadi) {
-        String oldSoyadi = this.soyadi;
         this.soyadi = soyadi;
-        changeSupport.firePropertyChange("soyadi", oldSoyadi, soyadi);
     }
 
     public String getSexsNo() {
@@ -169,9 +157,7 @@ public class Members implements Serializable {
     }
 
     public void setSexsNo(String sexsNo) {
-        String oldSexsNo = this.sexsNo;
         this.sexsNo = sexsNo;
-        changeSupport.firePropertyChange("sexsNo", oldSexsNo, sexsNo);
     }
 
     public String getTelefon() {
@@ -179,9 +165,7 @@ public class Members implements Serializable {
     }
 
     public void setTelefon(String telefon) {
-        String oldTelefon = this.telefon;
         this.telefon = telefon;
-        changeSupport.firePropertyChange("telefon", oldTelefon, telefon);
     }
 
     public String getQeyd() {
@@ -189,9 +173,7 @@ public class Members implements Serializable {
     }
 
     public void setQeyd(String qeyd) {
-        String oldQeyd = this.qeyd;
         this.qeyd = qeyd;
-        changeSupport.firePropertyChange("qeyd", oldQeyd, qeyd);
     }
 
     public String getIsActive() {
@@ -199,9 +181,7 @@ public class Members implements Serializable {
     }
 
     public void setIsActive(String isActive) {
-        String oldIsActive = this.isActive;
         this.isActive = isActive;
-        changeSupport.firePropertyChange("isActive", oldIsActive, isActive);
     }
 
     public Date getTarix() {
@@ -209,9 +189,7 @@ public class Members implements Serializable {
     }
 
     public void setTarix(Date tarix) {
-        Date oldTarix = this.tarix;
         this.tarix = tarix;
-        changeSupport.firePropertyChange("tarix", oldTarix, tarix);
     }
 
     @XmlTransient
@@ -239,6 +217,15 @@ public class Members implements Serializable {
 
     public void setKreditorCollection2(Collection<Kreditor> kreditorCollection2) {
         this.kreditorCollection2 = kreditorCollection2;
+    }
+
+    @XmlTransient
+    public Collection<Maganfir> getMaganfirCollection() {
+        return maganfirCollection;
+    }
+
+    public void setMaganfirCollection(Collection<Maganfir> maganfirCollection) {
+        this.maganfirCollection = maganfirCollection;
     }
 
     @XmlTransient
@@ -318,9 +305,7 @@ public class Members implements Serializable {
     }
 
     public void setIdProperties(Properties idProperties) {
-        Properties oldIdProperties = this.idProperties;
         this.idProperties = idProperties;
-        changeSupport.firePropertyChange("idProperties", oldIdProperties, idProperties);
     }
 
     @XmlTransient
@@ -382,23 +367,6 @@ public class Members implements Serializable {
     @Override
     public String toString() {
         return "com.entity.Members[ idMembers=" + idMembers + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Maganfir> getMaganfirCollection() {
-        return maganfirCollection;
-    }
-
-    public void setMaganfirCollection(Collection<Maganfir> maganfirCollection) {
-        this.maganfirCollection = maganfirCollection;
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

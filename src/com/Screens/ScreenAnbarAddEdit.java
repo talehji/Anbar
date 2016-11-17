@@ -4,21 +4,18 @@ import com.entity.Maganfir;
 import com.entity.Members;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public final class ScreenAnbarAddEdit extends javax.swing.JDialog {
 
-    private final EntityManager em;
+    EntityManager em;
     Maganfir m;
     private final List<Members> ListofMembers;
 
-    public ScreenAnbarAddEdit(java.awt.Frame parent, boolean modal, Maganfir m) {
+    public ScreenAnbarAddEdit(java.awt.Frame parent, boolean modal, Maganfir m, EntityManager em) {
         super(parent, modal);
         initComponents();
         this.m = m;
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("AnbarPU");
-        em = emf.createEntityManager();
+        this.em = em;
         ListofMembers = em.createNamedQuery("Members.findByIsActive", Members.class)
                 .setParameter("isActive", "1")
                 .getResultList();
@@ -34,7 +31,7 @@ public final class ScreenAnbarAddEdit extends javax.swing.JDialog {
             jTextFieldUnvan.setText(m.getUnvan());
         }
         for (Members p : ListofMembers) {
-            jComboBoxSatici.addItem(p.getAdi()+" "+p.getSoyadi());
+            jComboBoxSatici.addItem(p.getAdi() + " " + p.getSoyadi());
         }
     }
 
@@ -175,6 +172,7 @@ public final class ScreenAnbarAddEdit extends javax.swing.JDialog {
         Members SelectedMembers = ListofMembers.get(jComboBoxSatici.getSelectedIndex());
 
         if (m != null) {
+            em.getTransaction().begin();
             Maganfir mgf = new Maganfir(0);
             mgf.setIdMagAnFir(m.getIdMagAnFir());
             mgf.setAdi(jTextFieldAdi.getText());
@@ -183,11 +181,11 @@ public final class ScreenAnbarAddEdit extends javax.swing.JDialog {
             mgf.setPairentId("1");
             mgf.setIdMembers(em.find(Members.class, SelectedMembers.getIdMembers()));
             em.merge(mgf);
-            em.getTransaction().begin();
             em.getTransaction().commit();
             this.dispose();
 
         } else {
+            em.getTransaction().begin();
             Maganfir mgf = new Maganfir(0);
             mgf.setAdi(jTextFieldAdi.getText());
             mgf.setTelefon(jFormattedTextField1.getText());
@@ -196,7 +194,6 @@ public final class ScreenAnbarAddEdit extends javax.swing.JDialog {
             mgf.setIdMembers(em.find(Members.class, SelectedMembers.getIdMembers()));
 
             em.persist(mgf);
-            em.getTransaction().begin();
             em.getTransaction().commit();
             this.dispose();
         }

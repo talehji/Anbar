@@ -5,14 +5,13 @@
  */
 package com.entity;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +19,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -38,9 +36,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Properties.findByPairentId", query = "SELECT p FROM Properties p WHERE p.pairentId = :pairentId")})
 public class Properties implements Serializable {
 
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,15 +48,15 @@ public class Properties implements Serializable {
     @Basic(optional = false)
     @Column(name = "PairentId")
     private int pairentId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties", fetch = FetchType.LAZY)
     private Collection<Magazamubadile> magazamubadileCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties", fetch = FetchType.LAZY)
     private Collection<Mallar> mallarCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties", fetch = FetchType.LAZY)
     private Collection<Members> membersCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties", fetch = FetchType.LAZY)
     private Collection<Malsatisgeriqay> malsatisgeriqayCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties", fetch = FetchType.LAZY)
     private Collection<Zayitmis> zayitmisCollection;
 
     public Properties() {
@@ -82,9 +77,7 @@ public class Properties implements Serializable {
     }
 
     public void setIdProperties(Integer idProperties) {
-        Integer oldIdProperties = this.idProperties;
         this.idProperties = idProperties;
-        changeSupport.firePropertyChange("idProperties", oldIdProperties, idProperties);
     }
 
     public String getAdi() {
@@ -92,9 +85,7 @@ public class Properties implements Serializable {
     }
 
     public void setAdi(String adi) {
-        String oldAdi = this.adi;
         this.adi = adi;
-        changeSupport.firePropertyChange("adi", oldAdi, adi);
     }
 
     public int getPairentId() {
@@ -102,9 +93,7 @@ public class Properties implements Serializable {
     }
 
     public void setPairentId(int pairentId) {
-        int oldPairentId = this.pairentId;
         this.pairentId = pairentId;
-        changeSupport.firePropertyChange("pairentId", oldPairentId, pairentId);
     }
 
     @XmlTransient
@@ -175,14 +164,6 @@ public class Properties implements Serializable {
     @Override
     public String toString() {
         return "com.entity.Properties[ idProperties=" + idProperties + " ]";
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

@@ -4,21 +4,18 @@ import com.entity.Maganfir;
 import java.awt.Font;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.table.DefaultTableModel;
 
 public final class ScreenMagazalar extends javax.swing.JDialog {
 
-    private final EntityManager em;
+    EntityManager em;
     private List<Maganfir> ListOfMaganfir;
     private Maganfir selectedMagaza;
 
-    public ScreenMagazalar(java.awt.Frame parent, boolean modal) {
+    public ScreenMagazalar(java.awt.Frame parent, boolean modal,EntityManager em) {
         super(parent, modal);
         initComponents();
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("AnbarPU");
-        em = emf.createEntityManager();
+        this.em = em;
         FillMagazaTable();
     }
 
@@ -146,16 +143,19 @@ public final class ScreenMagazalar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ScreenMagazalarAddEdit d = new ScreenMagazalarAddEdit(null, rootPaneCheckingEnabled, null);
+        ScreenMagazalarAddEdit d = new ScreenMagazalarAddEdit(null, rootPaneCheckingEnabled, null, em);
         d.setVisible(true);
+        em.clear();
+        FillMagazaTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTableMagaza.getModel();
         int index = jTableMagaza.getSelectedRow();
         selectedMagaza = ListOfMaganfir.get(index);
-        ScreenMagazalarAddEdit d = new ScreenMagazalarAddEdit(null, rootPaneCheckingEnabled, selectedMagaza);
+        ScreenMagazalarAddEdit d = new ScreenMagazalarAddEdit(null, rootPaneCheckingEnabled, selectedMagaza, em);
         d.setVisible(true);
+        em.clear();
         FillMagazaTable();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -164,8 +164,9 @@ public final class ScreenMagazalar extends javax.swing.JDialog {
             DefaultTableModel model = (DefaultTableModel) jTableMagaza.getModel();
             int index = jTableMagaza.getSelectedRow();
             selectedMagaza = ListOfMaganfir.get(index);
-            ScreenMagazalarAddEdit d = new ScreenMagazalarAddEdit(null, rootPaneCheckingEnabled, selectedMagaza);
+            ScreenMagazalarAddEdit d = new ScreenMagazalarAddEdit(null, rootPaneCheckingEnabled, selectedMagaza, em);
             d.setVisible(true);
+            em.clear();
             FillMagazaTable();
         }
     }//GEN-LAST:event_jTableMagazaMouseClicked

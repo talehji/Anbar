@@ -9,8 +9,6 @@ import com.entity.Members;
 import java.awt.Font;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class ScreensMembers extends javax.swing.JDialog {
 
-    private final EntityManager em;
+    EntityManager em;
     private DefaultTableModel tmodel;
     private List<Members> ListOfMembers;
     private Members selectedMembers;
@@ -27,11 +25,10 @@ public final class ScreensMembers extends javax.swing.JDialog {
     /**
      * Creates new form ScreensMembers
      */
-    public ScreensMembers(java.awt.Frame parent, boolean modal) {
+    public ScreensMembers(java.awt.Frame parent, boolean modal, EntityManager em) {
         super(parent, modal);
         initComponents();
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("AnbarPU");
-        em = emf.createEntityManager();
+        this.em = em;
         FillMembersTable();
     }
 
@@ -173,8 +170,10 @@ public final class ScreensMembers extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ScreenMembersAddEdit d = new ScreenMembersAddEdit(null, rootPaneCheckingEnabled, null);
+        ScreenMembersAddEdit d = new ScreenMembersAddEdit(null, rootPaneCheckingEnabled, null, em);
+        em.clear();
         d.setVisible(true);
+        FillMembersTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTableMembersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMembersMouseClicked
@@ -182,8 +181,9 @@ public final class ScreensMembers extends javax.swing.JDialog {
             DefaultTableModel model = (DefaultTableModel) jTableMembers.getModel();
             int index = jTableMembers.getSelectedRow();
             selectedMembers = ListOfMembers.get(index);
-            ScreenMembersAddEdit d = new ScreenMembersAddEdit(null, rootPaneCheckingEnabled, selectedMembers);
+            ScreenMembersAddEdit d = new ScreenMembersAddEdit(null, rootPaneCheckingEnabled, selectedMembers, em);
             d.setVisible(true);
+            em.clear();
             FillMembersTable();
         }
     }//GEN-LAST:event_jTableMembersMouseClicked
@@ -192,8 +192,9 @@ public final class ScreensMembers extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) jTableMembers.getModel();
         int index = jTableMembers.getSelectedRow();
         selectedMembers = ListOfMembers.get(index);
-        ScreenMembersAddEdit d = new ScreenMembersAddEdit(null, rootPaneCheckingEnabled, selectedMembers);
+        ScreenMembersAddEdit d = new ScreenMembersAddEdit(null, rootPaneCheckingEnabled, selectedMembers, em);
         d.setVisible(true);
+        em.clear();
         FillMembersTable();
     }//GEN-LAST:event_jButton2ActionPerformed
 

@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,9 +47,9 @@ public class Malnovu implements Serializable {
     @Column(name = "Adi")
     private String adi;
     @JoinColumn(name = "idMalQrupu", referencedColumnName = "idMalQrupu")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Malqrupu idMalQrupu;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMalNovu")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMalNovu", fetch = FetchType.LAZY)
     private Collection<Mallar> mallarCollection;
 
     public Malnovu() {

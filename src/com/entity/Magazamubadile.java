@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,28 +59,28 @@ public class Magazamubadile implements Serializable {
     @Column(name = "Qeyd")
     private String qeyd;
     @JoinColumn(name = "idMallar", referencedColumnName = "idMallar")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Mallar idMallar;
     @JoinColumn(name = "idMagazaVeren", referencedColumnName = "idMagAnFir")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Maganfir idMagazaVeren;
     @JoinColumn(name = "idMagazaAlan", referencedColumnName = "idMagAnFir")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Maganfir idMagazaAlan;
     @JoinColumn(name = "idProperties", referencedColumnName = "idProperties")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Properties idProperties;
     @JoinColumn(name = "idMembersVeren", referencedColumnName = "idMembers")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Members idMembersVeren;
     @JoinColumn(name = "idMembersAlan", referencedColumnName = "idMembers")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Members idMembersAlan;
     @JoinColumn(name = "idMembersSenedYigan", referencedColumnName = "idMembers")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Members idMembersSenedYigan;
     @JoinColumn(name = "idMembersTesdiqEden", referencedColumnName = "idMembers")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Members idMembersTesdiqEden;
 
     public Magazamubadile() {

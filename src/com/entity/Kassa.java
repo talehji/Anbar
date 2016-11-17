@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -67,13 +68,13 @@ public class Kassa implements Serializable {
     @Basic(optional = false)
     @Column(name = "Qeyd")
     private String qeyd;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassa")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassa", fetch = FetchType.LAZY)
     private Collection<Kreditor> kreditorCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassa")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassa", fetch = FetchType.LAZY)
     private Collection<Debitor> debitorCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassaSatis")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassaSatis", fetch = FetchType.LAZY)
     private Collection<Malsatisgeriqay> malsatisgeriqayCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassaEDV")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassaEDV", fetch = FetchType.LAZY)
     private Collection<Malsatisgeriqay> malsatisgeriqayCollection1;
 
     public Kassa() {

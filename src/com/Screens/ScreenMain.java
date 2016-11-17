@@ -1,13 +1,21 @@
 package com.Screens;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class ScreenMain extends javax.swing.JFrame {
+
+    private final EntityManager em;
+    private final EntityManagerFactory emf;
 
     public ScreenMain() {
         initComponents();
         this.setExtendedState(ScreenMain.MAXIMIZED_BOTH);
+        emf = Persistence.createEntityManagerFactory("AnbarPU");
+        em = emf.createEntityManager();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -25,6 +33,7 @@ public class ScreenMain extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -117,6 +126,15 @@ public class ScreenMain extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Ayarlar");
+
+        jMenuItem3.setText("Proqram ayarları");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem3);
+
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Hesablar");
@@ -169,27 +187,32 @@ public class ScreenMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ScreenMagazalar d = new ScreenMagazalar(this, rootPaneCheckingEnabled);
+        ScreenMagazalar d = new ScreenMagazalar(this, rootPaneCheckingEnabled, em);
         d.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        ScreensMembers d = new ScreensMembers(this, rootPaneCheckingEnabled);
+        ScreensMembers d = new ScreensMembers(this, rootPaneCheckingEnabled, em);
         d.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        ScreenAnbar d = new ScreenAnbar(null, rootPaneCheckingEnabled);
+        ScreenAnbar d = new ScreenAnbar(null, rootPaneCheckingEnabled, em);
         d.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        ScreenProqramAyarlari d  = new ScreenProqramAyarlari(this, rootPaneCheckingEnabled, em);
+        d.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -231,6 +254,7 @@ public class ScreenMain extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;

@@ -9,8 +9,6 @@ import com.entity.Members;
 import com.entity.Properties;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -18,19 +16,18 @@ import javax.persistence.Persistence;
  */
 public final class ScreenMembersAddEdit extends javax.swing.JDialog {
 
-    private final EntityManager em;
+    EntityManager em;
     private final List<Properties> ListofVezife;
     /**
      * Creates new form NewJDialog1
      */
     Members m;
 
-    public ScreenMembersAddEdit(java.awt.Frame parent, boolean modal, Members m) {
+    public ScreenMembersAddEdit(java.awt.Frame parent, boolean modal, Members m, EntityManager em) {
         super(parent, modal);
         initComponents();
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("AnbarPU");
         this.m = m;
-        em = emf.createEntityManager();
+        this.em = em;
         ListofVezife = em.createNamedQuery("Properties.findByPairentId", Properties.class)
                 .setParameter("pairentId", 1)
                 .getResultList();
@@ -48,7 +45,7 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
             jFormattedTextField1.setText(m.getTelefon());
         }
         for (Properties p : ListofVezife) {
-                jComboBoxVezife.addItem(p.getAdi());
+            jComboBoxVezife.addItem(p.getAdi());
         }
     }
 
@@ -231,8 +228,8 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
         long t = date.getTime();
         java.sql.Date sqlDate = new java.sql.Date(t);
         Properties SelectedProperties = ListofVezife.get(jComboBoxVezife.getSelectedIndex());
-
         if (m != null) {
+            em.getTransaction().begin();
             Members d = new Members();
             d.setIdMembers(m.getIdMembers());
             d.setAdi(jTextFieldAdi.getText());
@@ -243,13 +240,12 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
             d.setIdProperties(em.find(Properties.class, SelectedProperties.getIdProperties()));
             d.setTarix(sqlDate);
             d.setIsActive("1");
-
             em.merge(d);
-            em.getTransaction().begin();
             em.getTransaction().commit();
             this.dispose();
 
         } else {
+            em.getTransaction().begin();
             Members d = new Members(0);
             d.setAdi(jTextFieldAdi.getText());
             d.setSoyadi(jTextFieldSoyad.getText());
@@ -259,9 +255,7 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
             d.setIdProperties(em.find(Properties.class, SelectedProperties.getIdProperties()));
             d.setTarix(sqlDate);
             d.setIsActive("1");
-
             em.persist(d);
-            em.getTransaction().begin();
             em.getTransaction().commit();
             this.dispose();
         }
