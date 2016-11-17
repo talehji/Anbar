@@ -8,21 +8,23 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.table.DefaultTableModel;
 
-public final class ScreenMagazalar extends javax.swing.JDialog {
+public final class ScreenAnbar extends javax.swing.JDialog {
 
     private final EntityManager em;
     private List<Maganfir> ListOfMaganfir;
     private Maganfir selectedMagaza;
 
-    public ScreenMagazalar(java.awt.Frame parent, boolean modal) {
+    public ScreenAnbar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("AnbarPU");
         em = emf.createEntityManager();
-        FillMagazaTable();
+        em.getEntityManagerFactory().getCache().evictAll();
+
+        FillAnbarTable();
     }
 
-    public void FillMagazaTable() {
+    public void FillAnbarTable() {
 
         DefaultTableModel tmodel = new DefaultTableModel() {
             @Override
@@ -36,18 +38,18 @@ public final class ScreenMagazalar extends javax.swing.JDialog {
         tmodel.addColumn("Ünvan");
         tmodel.addColumn("Satıcı");
 
-        jTableMagaza.setAutoResizeMode(jTableMagaza.AUTO_RESIZE_ALL_COLUMNS);
-        jTableMagaza.setRowHeight(20);
-        jTableMagaza.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        jTableMagaza.setModel(tmodel);
-        jTableMagaza.setModel(tmodel);
+        jTableAnbar.setAutoResizeMode(jTableAnbar.AUTO_RESIZE_ALL_COLUMNS);
+        jTableAnbar.setRowHeight(20);
+        jTableAnbar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        jTableAnbar.setModel(tmodel);
+        jTableAnbar.setModel(tmodel);
 
         ListOfMaganfir = em.createNamedQuery("Maganfir.findByPairentId", Maganfir.class)
-                .setParameter("pairentId", "2")
+                .setParameter("pairentId", "1")
                 .getResultList();
 
         for (Maganfir b : ListOfMaganfir) {
-            tmodel.insertRow(jTableMagaza.getRowCount(), new Object[]{
+            tmodel.insertRow(jTableAnbar.getRowCount(), new Object[]{
                 b.getAdi(),
                 b.getTelefon(),
                 b.getUnvan(),
@@ -61,7 +63,7 @@ public final class ScreenMagazalar extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableMagaza = new javax.swing.JTable();
+        jTableAnbar = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -70,7 +72,7 @@ public final class ScreenMagazalar extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(202, 151, 119));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(188, 123, 81), 6));
 
-        jTableMagaza.setModel(new javax.swing.table.DefaultTableModel(
+        jTableAnbar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -78,12 +80,12 @@ public final class ScreenMagazalar extends javax.swing.JDialog {
 
             }
         ));
-        jTableMagaza.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableAnbar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableMagazaMouseClicked(evt);
+                jTableAnbarMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableMagaza);
+        jScrollPane1.setViewportView(jTableAnbar);
 
         jButton1.setBackground(new java.awt.Color(192, 135, 98));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -146,29 +148,30 @@ public final class ScreenMagazalar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ScreenMagazalarAddEdit d = new ScreenMagazalarAddEdit(null, rootPaneCheckingEnabled, null);
+        ScreenAnbarAddEdit d = new ScreenAnbarAddEdit(null, rootPaneCheckingEnabled, null);
         d.setVisible(true);
+        FillAnbarTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTableMagaza.getModel();
-        int index = jTableMagaza.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) jTableAnbar.getModel();
+        int index = jTableAnbar.getSelectedRow();
         selectedMagaza = ListOfMaganfir.get(index);
-        ScreenMagazalarAddEdit d = new ScreenMagazalarAddEdit(null, rootPaneCheckingEnabled, selectedMagaza);
+        ScreenAnbarAddEdit d = new ScreenAnbarAddEdit(null, rootPaneCheckingEnabled, selectedMagaza);
         d.setVisible(true);
-        FillMagazaTable();
+        FillAnbarTable();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTableMagazaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMagazaMouseClicked
+    private void jTableAnbarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAnbarMouseClicked
         if (evt.getClickCount() == 2) {
-            DefaultTableModel model = (DefaultTableModel) jTableMagaza.getModel();
-            int index = jTableMagaza.getSelectedRow();
+            DefaultTableModel model = (DefaultTableModel) jTableAnbar.getModel();
+            int index = jTableAnbar.getSelectedRow();
             selectedMagaza = ListOfMaganfir.get(index);
-            ScreenMagazalarAddEdit d = new ScreenMagazalarAddEdit(null, rootPaneCheckingEnabled, selectedMagaza);
+            ScreenAnbarAddEdit d = new ScreenAnbarAddEdit(null, rootPaneCheckingEnabled, selectedMagaza);
             d.setVisible(true);
-            FillMagazaTable();
+            FillAnbarTable();
         }
-    }//GEN-LAST:event_jTableMagazaMouseClicked
+    }//GEN-LAST:event_jTableAnbarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -176,6 +179,6 @@ public final class ScreenMagazalar extends javax.swing.JDialog {
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableMagaza;
+    private javax.swing.JTable jTableAnbar;
     // End of variables declaration//GEN-END:variables
 }

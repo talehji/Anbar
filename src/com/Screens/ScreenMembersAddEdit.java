@@ -20,12 +20,8 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
 
     private final EntityManager em;
     private final List<Properties> ListofVezife;
-
     /**
-     * Creates new form ScreenMembersAdd
-     *
-     * @param parent
-     * @param modal
+     * Creates new form NewJDialog1
      */
     Members m;
 
@@ -33,11 +29,15 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("AnbarPU");
-        em = emf.createEntityManager();
-        ListofVezife = em.createNamedQuery("Properties.findAll", Properties.class).getResultList();
-        jcom(ListofVezife);
         this.m = m;
+        em = emf.createEntityManager();
+        ListofVezife = em.createNamedQuery("Properties.findByPairentId", Properties.class)
+                .setParameter("pairentId", 1)
+                .getResultList();
+        jcom();
+    }
 
+    public void jcom() {
         if (m == null) {
 
         } else {
@@ -47,13 +47,8 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
             jTextFieldVesiqeNo.setText(m.getSexsNo());
             jFormattedTextField1.setText(m.getTelefon());
         }
-    }
-
-    public void jcom(Iterable<Properties> ListofVezife) {
         for (Properties p : ListofVezife) {
-            if (p.getPairentId() == 1) {
                 jComboBoxVezife.addItem(p.getAdi());
-            }
         }
     }
 
@@ -67,39 +62,37 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jTextFieldSoyad = new javax.swing.JTextField();
+        jLabels = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldQeyd = new javax.swing.JTextField();
-        jTextFieldVesiqeNo = new javax.swing.JTextField();
         jButtonBagla = new javax.swing.JButton();
+        jTextFieldAdi = new javax.swing.JTextField();
         jComboBoxVezife = new javax.swing.JComboBox<>();
+        jTextFieldQeyd = new javax.swing.JTextField();
         jButtonYaddaSaxla = new javax.swing.JButton();
+        jTextFieldVesiqeNo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabels = new javax.swing.JLabel();
-        jTextFieldAdi = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("Soyad");
+        jPanel1.setBackground(new java.awt.Color(202, 151, 119));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(188, 123, 81), 6));
 
         jTextFieldSoyad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabels.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabels.setText("Vəzifə");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Vəsiqə Nömrəsi");
 
-        jTextFieldQeyd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jTextFieldVesiqeNo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jButtonBagla.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonBagla.setBackground(new java.awt.Color(192, 135, 98));
+        jButtonBagla.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonBagla.setText("Bağla");
         jButtonBagla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,15 +100,23 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
             }
         });
 
+        jTextFieldAdi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jComboBoxVezife.setBackground(new java.awt.Color(192, 135, 98));
         jComboBoxVezife.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jButtonYaddaSaxla.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldQeyd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jButtonYaddaSaxla.setBackground(new java.awt.Color(192, 135, 98));
+        jButtonYaddaSaxla.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonYaddaSaxla.setText("Yadda saxla");
         jButtonYaddaSaxla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonYaddaSaxlaActionPerformed(evt);
             }
         });
+
+        jTextFieldVesiqeNo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Adı");
@@ -130,13 +131,11 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Qeyd");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("Soyad");
+
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Telefon");
-
-        jLabels.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabels.setText("Vəzifə");
-
-        jTextFieldAdi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -153,11 +152,15 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextFieldQeyd, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldVesiqeNo, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButtonYaddaSaxla)
+                            .addComponent(jButtonYaddaSaxla, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonBagla, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonBagla, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -169,12 +172,8 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldSoyad, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldVesiqeNo, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jTextFieldSoyad, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,9 +203,11 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
                     .addComponent(jLabels)
                     .addComponent(jComboBoxVezife, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonBagla)
-                    .addComponent(jButtonYaddaSaxla))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonBagla, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButtonYaddaSaxla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -214,62 +215,61 @@ public final class ScreenMembersAddEdit extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonBaglaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBaglaActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButtonBaglaActionPerformed
-
     private void jButtonYaddaSaxlaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonYaddaSaxlaActionPerformed
         java.util.Date date = new java.util.Date();
         long t = date.getTime();
         java.sql.Date sqlDate = new java.sql.Date(t);
+        Properties SelectedProperties = ListofVezife.get(jComboBoxVezife.getSelectedIndex());
 
         if (m != null) {
-                Members d = new Members();
-                d.setIdMembers(m.getIdMembers());
-                d.setAdi(jTextFieldAdi.getText());
-                d.setSoyadi(jTextFieldSoyad.getText());
-                d.setTelefon(jFormattedTextField1.getText());
-                d.setSexsNo(jTextFieldVesiqeNo.getText());
-                d.setQeyd(jTextFieldQeyd.getText());
-                d.setIdProperties(em.find(Properties.class, em.createNamedQuery("Properties.findByAdi", Properties.class).setParameter("adi", jComboBoxVezife.getSelectedItem().toString()).getSingleResult().getIdProperties()));
-                d.setTarix(sqlDate);
-                d.setIsActive("1");
+            Members d = new Members();
+            d.setIdMembers(m.getIdMembers());
+            d.setAdi(jTextFieldAdi.getText());
+            d.setSoyadi(jTextFieldSoyad.getText());
+            d.setTelefon(jFormattedTextField1.getText());
+            d.setSexsNo(jTextFieldVesiqeNo.getText());
+            d.setQeyd(jTextFieldQeyd.getText());
+            d.setIdProperties(em.find(Properties.class, SelectedProperties.getIdProperties()));
+            d.setTarix(sqlDate);
+            d.setIsActive("1");
 
-                em.merge(d);
-                em.getTransaction().begin();
-                em.getTransaction().commit();
-                this.dispose();
+            em.merge(d);
+            em.getTransaction().begin();
+            em.getTransaction().commit();
+            this.dispose();
 
         } else {
-                Members d = new Members(0);
-                d.setAdi(jTextFieldAdi.getText());
-                d.setSoyadi(jTextFieldSoyad.getText());
-                d.setTelefon(jFormattedTextField1.getText());
-                d.setSexsNo(jTextFieldVesiqeNo.getText());
-                d.setQeyd(jTextFieldQeyd.getText());
-                d.setIdProperties(em.find(Properties.class, em.createNamedQuery("Properties.findByAdi", Properties.class).setParameter("adi", jComboBoxVezife.getSelectedItem().toString()).getSingleResult().getIdProperties()));
-                d.setTarix(sqlDate);
-                d.setIsActive("1");
+            Members d = new Members(0);
+            d.setAdi(jTextFieldAdi.getText());
+            d.setSoyadi(jTextFieldSoyad.getText());
+            d.setTelefon(jFormattedTextField1.getText());
+            d.setSexsNo(jTextFieldVesiqeNo.getText());
+            d.setQeyd(jTextFieldQeyd.getText());
+            d.setIdProperties(em.find(Properties.class, SelectedProperties.getIdProperties()));
+            d.setTarix(sqlDate);
+            d.setIsActive("1");
 
-                em.persist(d);
-                em.getTransaction().begin();
-                em.getTransaction().commit();
-                this.dispose();
+            em.persist(d);
+            em.getTransaction().begin();
+            em.getTransaction().commit();
+            this.dispose();
+        }
     }//GEN-LAST:event_jButtonYaddaSaxlaActionPerformed
-    }
+
+    private void jButtonBaglaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBaglaActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButtonBaglaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBagla;

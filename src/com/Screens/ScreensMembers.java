@@ -6,7 +6,7 @@
 package com.Screens;
 
 import com.entity.Members;
-import com.entity.Properties;
+import java.awt.Font;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,7 +22,7 @@ public final class ScreensMembers extends javax.swing.JDialog {
     private final EntityManager em;
     private DefaultTableModel tmodel;
     private List<Members> ListOfMembers;
-    private Members selectedKassa;
+    private Members selectedMembers;
 
     /**
      * Creates new form ScreensMembers
@@ -51,6 +51,9 @@ public final class ScreensMembers extends javax.swing.JDialog {
         tmodel.addColumn("Vəzifə");
         tmodel.addColumn("Status");
 
+        jTableMembers.setAutoResizeMode(jTableMembers.AUTO_RESIZE_ALL_COLUMNS);
+        jTableMembers.setRowHeight(20);
+        jTableMembers.setFont(new Font("Tahoma", Font.PLAIN, 14));
         jTableMembers.setModel(tmodel);
         ListOfMembers = null;
         ListOfMembers = em.createNamedQuery("Members.findAll", Members.class).getResultList();
@@ -83,12 +86,16 @@ public final class ScreensMembers extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMembers = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(202, 151, 119));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(188, 123, 81), 6));
 
         jTableMembers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,6 +112,8 @@ public final class ScreensMembers extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTableMembers);
 
+        jButton1.setBackground(new java.awt.Color(192, 135, 98));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setText("Əlavə et");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +121,8 @@ public final class ScreensMembers extends javax.swing.JDialog {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(192, 135, 98));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setText("Dəyiş");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,31 +130,42 @@ public final class ScreensMembers extends javax.swing.JDialog {
             }
         });
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -159,8 +181,8 @@ public final class ScreensMembers extends javax.swing.JDialog {
         if (evt.getClickCount() == 2) {
             DefaultTableModel model = (DefaultTableModel) jTableMembers.getModel();
             int index = jTableMembers.getSelectedRow();
-            selectedKassa = ListOfMembers.get(index);
-            ScreenMembersAddEdit d = new ScreenMembersAddEdit(null, rootPaneCheckingEnabled, selectedKassa);
+            selectedMembers = ListOfMembers.get(index);
+            ScreenMembersAddEdit d = new ScreenMembersAddEdit(null, rootPaneCheckingEnabled, selectedMembers);
             d.setVisible(true);
             FillMembersTable();
         }
@@ -169,8 +191,8 @@ public final class ScreensMembers extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTableMembers.getModel();
         int index = jTableMembers.getSelectedRow();
-        selectedKassa = ListOfMembers.get(index);
-        ScreenMembersAddEdit d = new ScreenMembersAddEdit(null, rootPaneCheckingEnabled, selectedKassa);
+        selectedMembers = ListOfMembers.get(index);
+        ScreenMembersAddEdit d = new ScreenMembersAddEdit(null, rootPaneCheckingEnabled, selectedMembers);
         d.setVisible(true);
         FillMembersTable();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -179,6 +201,7 @@ public final class ScreensMembers extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableMembers;
     // End of variables declaration//GEN-END:variables

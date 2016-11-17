@@ -1,8 +1,5 @@
 package com.Screens;
 
-import java.awt.Color;
-import java.awt.GridLayout;
-
 
 public class ScreenMain extends javax.swing.JFrame {
 
@@ -19,6 +16,7 @@ public class ScreenMain extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -33,7 +31,6 @@ public class ScreenMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Anbar");
-        setAlwaysOnTop(true);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -75,6 +72,18 @@ public class ScreenMain extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton3);
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Icon/OpenBox-2-icon.png"))); // NOI18N
+        jButton4.setToolTipText("Anbar");
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton4);
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -84,6 +93,8 @@ public class ScreenMain extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        jMenuBar1.setBackground(new java.awt.Color(202, 151, 119));
 
         jMenu1.setText("Fayl");
 
@@ -120,6 +131,7 @@ public class ScreenMain extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
+        jMenu6.setBackground(new java.awt.Color(202, 151, 119));
         jMenu6.setText("Haqqında");
         jMenuBar1.add(jMenu6);
 
@@ -132,7 +144,7 @@ public class ScreenMain extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -144,7 +156,7 @@ public class ScreenMain extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -173,6 +185,11 @@ public class ScreenMain extends javax.swing.JFrame {
         ScreensMembers d = new ScreensMembers(this, rootPaneCheckingEnabled);
         d.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        ScreenAnbar d = new ScreenAnbar(null, rootPaneCheckingEnabled);
+        d.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -204,6 +221,7 @@ public class ScreenMain extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
