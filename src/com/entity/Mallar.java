@@ -6,9 +6,7 @@
 package com.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,10 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Mallar.findAll", query = "SELECT m FROM Mallar m")
     , @NamedQuery(name = "Mallar.findByIdMallar", query = "SELECT m FROM Mallar m WHERE m.idMallar = :idMallar")
     , @NamedQuery(name = "Mallar.findByAdi", query = "SELECT m FROM Mallar m WHERE m.adi = :adi")
-    , @NamedQuery(name = "Mallar.findByMiqdari", query = "SELECT m FROM Mallar m WHERE m.miqdari = :miqdari")})
+    , @NamedQuery(name = "Mallar.findByStrixKod", query = "SELECT m FROM Mallar m WHERE m.strixKod = :strixKod")})
 public class Mallar implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,20 +44,14 @@ public class Mallar implements Serializable {
     @Column(name = "Adi")
     private String adi;
     @Basic(optional = false)
-    @Column(name = "Miqdari")
-    private String miqdari;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar", fetch = FetchType.LAZY)
-    private Collection<Magazamubadile> magazamubadileCollection;
+    @Column(name = "StrixKod")
+    private String strixKod;
     @JoinColumn(name = "idMalNovu", referencedColumnName = "idMalNovu")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Malnovu idMalNovu;
     @JoinColumn(name = "idProperties", referencedColumnName = "idProperties")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Properties idProperties;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar", fetch = FetchType.LAZY)
-    private Collection<Malsatisgeriqay> malsatisgeriqayCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar", fetch = FetchType.LAZY)
-    private Collection<Zayitmis> zayitmisCollection;
 
     public Mallar() {
     }
@@ -70,10 +60,10 @@ public class Mallar implements Serializable {
         this.idMallar = idMallar;
     }
 
-    public Mallar(Integer idMallar, String adi, String miqdari) {
+    public Mallar(Integer idMallar, String adi, String strixKod) {
         this.idMallar = idMallar;
         this.adi = adi;
-        this.miqdari = miqdari;
+        this.strixKod = strixKod;
     }
 
     public Integer getIdMallar() {
@@ -92,21 +82,12 @@ public class Mallar implements Serializable {
         this.adi = adi;
     }
 
-    public String getMiqdari() {
-        return miqdari;
+    public String getStrixKod() {
+        return strixKod;
     }
 
-    public void setMiqdari(String miqdari) {
-        this.miqdari = miqdari;
-    }
-
-    @XmlTransient
-    public Collection<Magazamubadile> getMagazamubadileCollection() {
-        return magazamubadileCollection;
-    }
-
-    public void setMagazamubadileCollection(Collection<Magazamubadile> magazamubadileCollection) {
-        this.magazamubadileCollection = magazamubadileCollection;
+    public void setStrixKod(String strixKod) {
+        this.strixKod = strixKod;
     }
 
     public Malnovu getIdMalNovu() {
@@ -123,24 +104,6 @@ public class Mallar implements Serializable {
 
     public void setIdProperties(Properties idProperties) {
         this.idProperties = idProperties;
-    }
-
-    @XmlTransient
-    public Collection<Malsatisgeriqay> getMalsatisgeriqayCollection() {
-        return malsatisgeriqayCollection;
-    }
-
-    public void setMalsatisgeriqayCollection(Collection<Malsatisgeriqay> malsatisgeriqayCollection) {
-        this.malsatisgeriqayCollection = malsatisgeriqayCollection;
-    }
-
-    @XmlTransient
-    public Collection<Zayitmis> getZayitmisCollection() {
-        return zayitmisCollection;
-    }
-
-    public void setZayitmisCollection(Collection<Zayitmis> zayitmisCollection) {
-        this.zayitmisCollection = zayitmisCollection;
     }
 
     @Override

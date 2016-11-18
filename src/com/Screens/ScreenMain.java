@@ -1,19 +1,61 @@
 package com.Screens;
 
+import com.entity.Mallar;
+import java.awt.Font;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.table.DefaultTableModel;
 
-public class ScreenMain extends javax.swing.JFrame {
+public final class ScreenMain extends javax.swing.JFrame {
 
     private final EntityManager em;
     private final EntityManagerFactory emf;
+    private DefaultTableModel tmodel;
+    private List<Mallar> ListOfMallar;
 
     public ScreenMain() {
         initComponents();
         this.setExtendedState(ScreenMain.MAXIMIZED_BOTH);
         emf = Persistence.createEntityManagerFactory("AnbarPU");
         em = emf.createEntityManager();
+        FillTheMallarTable();
+    }
+    
+    public void FillTheMallarTable(){
+        tmodel = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+        };
+        tmodel.addColumn("Adı");
+        tmodel.addColumn("Soyadı");
+        tmodel.addColumn("Səxşiyyət VN");
+        tmodel.addColumn("Telefon");
+        tmodel.addColumn("Vəzifə");
+        tmodel.addColumn("Status");
+
+        jTableMallar.setAutoResizeMode(jTableMallar.AUTO_RESIZE_ALL_COLUMNS);
+        jTableMallar.setRowHeight(20);
+        jTableMallar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        jTableMallar.setModel(tmodel);
+        ListOfMallar = em.createNamedQuery("Mallar.findAll", Mallar.class).getResultList();
+
+        for (Mallar b : ListOfMallar) {
+
+                tmodel.insertRow(jTableMallar.getRowCount(), new Object[]{
+                    b.getAdi(),
+                    b.getStrixKod(),
+                    b.getIdProperties().getAdi(),
+                    b.getIdMalNovu().getIdMalQrupu().getIdMalSinfi().getAdi(),
+                    b.getIdMalNovu().getIdMalQrupu().getAdi(),
+                    b.getIdMalNovu().getAdi(),
+                    b.getIdProperties().getAdi(),
+                });
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -26,7 +68,7 @@ public class ScreenMain extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableMallar = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -34,6 +76,7 @@ public class ScreenMain extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -93,7 +136,7 @@ public class ScreenMain extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton4);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableMallar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -101,7 +144,7 @@ public class ScreenMain extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableMallar);
 
         jMenuBar1.setBackground(new java.awt.Color(202, 151, 119));
 
@@ -127,13 +170,21 @@ public class ScreenMain extends javax.swing.JFrame {
 
         jMenu4.setText("Ayarlar");
 
-        jMenuItem3.setText("Proqram ayarları");
+        jMenuItem3.setText("Seçim Qutuları");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
             }
         });
         jMenu4.add(jMenuItem3);
+
+        jMenuItem4.setText("Sinif / Qrup / Nov");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem4);
 
         jMenuBar1.add(jMenu4);
 
@@ -210,9 +261,14 @@ public class ScreenMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        ScreenProqramAyarlari d  = new ScreenProqramAyarlari(this, rootPaneCheckingEnabled, em);
+        ScreenSecimQutulari d  = new ScreenSecimQutulari(this, rootPaneCheckingEnabled, em);
         d.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        ScreenMalSinifQrupNov d = new ScreenMalSinifQrupNov(this, rootPaneCheckingEnabled, em);
+        d.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -255,8 +311,9 @@ public class ScreenMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableMallar;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }

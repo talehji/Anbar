@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
  *
  * @author Pallas
  */
-public final class ScreenProqramAyarlari extends javax.swing.JDialog {
+public final class ScreenSecimQutulari extends javax.swing.JDialog {
 
     /**
      * Creates new form NewJDialog
@@ -29,7 +29,7 @@ public final class ScreenProqramAyarlari extends javax.swing.JDialog {
     private Mainproperties selectedMainPropertiesChange;
     private Properties selectedPropertiesAlt;
 
-    public ScreenProqramAyarlari(java.awt.Frame parent, boolean modal, EntityManager em) {
+    public ScreenSecimQutulari(java.awt.Frame parent, boolean modal, EntityManager em) {
         super(parent, modal);
         initComponents();
         this.em = em;

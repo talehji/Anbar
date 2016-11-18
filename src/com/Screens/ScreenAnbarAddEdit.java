@@ -26,6 +26,7 @@ public final class ScreenAnbarAddEdit extends javax.swing.JDialog {
         if (m == null) {
 
         } else {
+            this.setTitle("Düzəliş et");
             jTextFieldAdi.setText(m.getAdi());
             jFormattedTextField1.setText(m.getTelefon());
             jTextFieldUnvan.setText(m.getUnvan());
@@ -52,6 +53,7 @@ public final class ScreenAnbarAddEdit extends javax.swing.JDialog {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Daxil et");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(202, 151, 119));
