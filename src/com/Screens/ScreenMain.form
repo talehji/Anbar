@@ -113,8 +113,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
               <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="438" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="443" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -133,7 +133,7 @@
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/Icon/Files-New-File-icon.png"/>
+              <Image iconType="3" name="/com/Icon/document-add-icon.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Yeni"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -147,7 +147,7 @@
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/Icon/Apps-Notifications-icon.png"/>
+              <Image iconType="3" name="/com/Icon/Apps-Notifications-icon_1.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Bildiri&#x15f;l&#x259;r"/>
             <Property name="focusable" type="boolean" value="false"/>
