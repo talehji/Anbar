@@ -22,8 +22,8 @@ public final class ScreenMain extends javax.swing.JFrame {
         em = emf.createEntityManager();
         FillTheMallarTable();
     }
-    
-    public void FillTheMallarTable(){
+
+    public void FillTheMallarTable() {
         tmodel = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -33,7 +33,7 @@ public final class ScreenMain extends javax.swing.JFrame {
         };
         tmodel.addColumn("Adı");
         tmodel.addColumn("Soyadı");
-        tmodel.addColumn("Səxşiyyət VN");
+        tmodel.addColumn("Şəxsiyyət VN");
         tmodel.addColumn("Telefon");
         tmodel.addColumn("Vəzifə");
         tmodel.addColumn("Status");
@@ -46,18 +46,17 @@ public final class ScreenMain extends javax.swing.JFrame {
 
         for (Mallar b : ListOfMallar) {
 
-                tmodel.insertRow(jTableMallar.getRowCount(), new Object[]{
-                    b.getAdi(),
-                    b.getStrixKod(),
-                    b.getIdProperties().getAdi(),
-                    b.getIdMalNovu().getIdMalQrupu().getIdMalSinfi().getAdi(),
-                    b.getIdMalNovu().getIdMalQrupu().getAdi(),
-                    b.getIdMalNovu().getAdi(),
-                    b.getIdProperties().getAdi(),
-                });
+            tmodel.insertRow(jTableMallar.getRowCount(), new Object[]{
+                b.getAdi(),
+                b.getStrixKod(),
+                b.getIdProperties().getAdi(),
+                b.getIdMalNovu().getIdMalQrupu().getIdMalSinfi().getAdi(),
+                b.getIdMalNovu().getIdMalQrupu().getAdi(),
+                b.getIdMalNovu().getAdi(),
+                b.getIdProperties().getAdi(),});
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -261,7 +260,7 @@ public final class ScreenMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        ScreenSecimQutulari d  = new ScreenSecimQutulari(this, rootPaneCheckingEnabled, em);
+        ScreenSecimQutulari d = new ScreenSecimQutulari(this, rootPaneCheckingEnabled, em);
         d.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 

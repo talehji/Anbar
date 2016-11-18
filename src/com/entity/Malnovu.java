@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Malnovu.findAll", query = "SELECT m FROM Malnovu m")
     , @NamedQuery(name = "Malnovu.findByIdMalNovu", query = "SELECT m FROM Malnovu m WHERE m.idMalNovu = :idMalNovu")
+    , @NamedQuery(name = "Malnovu.findByIdMalQrupu", query = "SELECT m FROM Malnovu m WHERE m.idMalQrupu = :idMalQrupu")
     , @NamedQuery(name = "Malnovu.findByAdi", query = "SELECT m FROM Malnovu m WHERE m.adi = :adi")})
 public class Malnovu implements Serializable {
 
