@@ -318,7 +318,7 @@ public final class ScreenMalSinifQrupNov extends javax.swing.JDialog {
 
     private void jTextFieldMalSinfiChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMalSinfiChangeActionPerformed
         em.getTransaction().begin();
-        Malsinfi ms  = new Malsinfi();
+        Malsinfi ms = new Malsinfi();
         ms.setIdMalSinfi(selectedMalsinfiChange.getIdMalSinfi());
         ms.setAdi(jTextFieldMalSinfiChange.getText());
         em.merge(ms);
@@ -330,7 +330,7 @@ public final class ScreenMalSinifQrupNov extends javax.swing.JDialog {
 
     private void jTextFieldMalSinfiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMalSinfiActionPerformed
         em.getTransaction().begin();
-        Malsinfi ms  = new Malsinfi(0);
+        Malsinfi ms = new Malsinfi(0);
         ms.setAdi(jTextFieldMalSinfi.getText());
         em.persist(ms);
         em.getTransaction().commit();
@@ -399,8 +399,9 @@ public final class ScreenMalSinifQrupNov extends javax.swing.JDialog {
     private void jComboBoxMalSinfiChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMalSinfiChangeActionPerformed
         if (jComboBoxMalSinfiChange.getSelectedIndex() > -1) {
             jComboBoxMalQrupuChange.removeAllItems();
-            jTextFieldMalSinfiChange.setText(null);            
+            jTextFieldMalSinfiChange.setText(null);
             jTextFieldMalQrupuChange.setText(null);
+            jTextFieldMalNovuChange.setText(null);
             selectedMalsinfiChange = ListOfMalsinfi.get(jComboBoxMalSinfiChange.getSelectedIndex());
             jTextFieldMalSinfiChange.setText(selectedMalsinfiChange.getAdi());
             ListOfMalQrupuChange = em.createNamedQuery("Malqrupu.findByIdMalSinfi", Malqrupu.class)
@@ -417,7 +418,7 @@ public final class ScreenMalSinifQrupNov extends javax.swing.JDialog {
     private void jComboBoxMalQrupuChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMalQrupuChangeActionPerformed
         if (jComboBoxMalQrupuChange.getSelectedIndex() > -1) {
             jComboBoxmalNovuChange.removeAllItems();
-            jTextFieldMalNovuChange.setText(null);
+            jTextFieldMalQrupuChange.setText(null);
             selectedMalQrupuChange = ListOfMalQrupuChange.get(jComboBoxMalQrupuChange.getSelectedIndex());
             jTextFieldMalQrupuChange.setText(selectedMalQrupuChange.getAdi());
             ListOfMalNovuChange = em.createNamedQuery("Malnovu.findByIdMalQrupu", Malnovu.class)
@@ -433,7 +434,7 @@ public final class ScreenMalSinifQrupNov extends javax.swing.JDialog {
 
     private void jComboBoxmalNovuChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxmalNovuChangeActionPerformed
         if (jComboBoxmalNovuChange.getSelectedIndex() > -1) {
-            selectedMalNovuChange = ListOfMalNovu.get(jComboBoxmalNovuChange.getSelectedIndex());
+            selectedMalNovuChange = ListOfMalNovuChange.get(jComboBoxmalNovuChange.getSelectedIndex());
             jTextFieldMalNovuChange.setText(selectedMalNovuChange.getAdi());
         } else {
         }
