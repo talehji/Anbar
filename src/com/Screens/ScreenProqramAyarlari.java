@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
  *
  * @author Pallas
  */
-public class ScreenProqramAyarlari extends javax.swing.JDialog {
+public final class ScreenProqramAyarlari extends javax.swing.JDialog {
 
     /**
      * Creates new form NewJDialog
@@ -34,12 +34,12 @@ public class ScreenProqramAyarlari extends javax.swing.JDialog {
 
     public void AllCombo() {
         jComboBoxMain.removeAllItems();
+        jComboBoxMain.addItem("Birini Seçin...");
         ListOfMainproperties = em.createNamedQuery("Mainproperties.findAll", Mainproperties.class)
                 .getResultList();
         ListOfMainproperties.forEach((mp) -> {
             jComboBoxMain.addItem(mp.getName());
         });
-        selectedMainProperties = ListOfMainproperties.get(jComboBoxMain.getSelectedIndex());
     }
 
     /**
@@ -171,32 +171,32 @@ public class ScreenProqramAyarlari extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldmainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldmainActionPerformed
-
+        em.getTransaction().begin();
+        Mainproperties d = new Mainproperties(0);
+        d.setName(jTextFieldmain.getText());
+        em.persist(d);
+        em.getTransaction().commit();
+        jTextFieldmain.setText(null);
+        AllCombo();
     }//GEN-LAST:event_jTextFieldmainActionPerformed
 
     private void jComboBoxMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMainActionPerformed
-        jComboBox2.removeAllItems();
-        ListOfProperties = em.createNamedQuery("Properties.findByPairentId", Properties.class)
-                .setParameter("pairentId", selectedMainProperties.getIdMainProperties())
-                .getResultList();
-        for (Properties p : ListOfProperties) {
-            jComboBox2.addItem(p.getAdi());
+        if (jComboBoxMain.getSelectedIndex() > 0) {
+            jComboBox2.removeAllItems();
+            selectedMainProperties = ListOfMainproperties.get(jComboBoxMain.getSelectedIndex() - 1);
+            ListOfProperties = em.createNamedQuery("Properties.findByPairentId", Properties.class)
+                    .setParameter("pairentId", selectedMainProperties.getIdMainProperties())
+                    .getResultList();
+            ListOfProperties.forEach((p) -> {
+                jComboBox2.addItem(p.getAdi());
+            });
+        }else{
+            jComboBox2.removeAllItems();
         }
-        AllCombo();
-        AllCombo();
     }//GEN-LAST:event_jComboBoxMainActionPerformed
 
     private void jTextFieldmainKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldmainKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            em.getTransaction().begin();
-            Mainproperties d = new Mainproperties(0);
-            d.setName(jTextFieldmain.getText());
-            em.merge(d);
-            em.getTransaction().commit();
-            em.clear();
-            jTextFieldmain.setText(null);
-            AllCombo();
-        }
+
     }//GEN-LAST:event_jTextFieldmainKeyReleased
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
@@ -205,10 +205,9 @@ public class ScreenProqramAyarlari extends javax.swing.JDialog {
             Properties d = new Properties(0);
             d.setAdi(jTextField2.getText());
             d.setPairentId(selectedMainProperties.getIdMainProperties());
-            em.merge(d);
+            em.persist(d);
             em.getTransaction().commit();
             jTextField2.setText(null);
-            em.clear();
             AllCombo();
         }
     }//GEN-LAST:event_jTextField2KeyReleased
