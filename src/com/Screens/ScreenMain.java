@@ -32,11 +32,11 @@ public final class ScreenMain extends javax.swing.JFrame {
 
         };
         tmodel.addColumn("Adı");
-        tmodel.addColumn("Soyadı");
-        tmodel.addColumn("Şəxsiyyət VN");
-        tmodel.addColumn("Telefon");
-        tmodel.addColumn("Vəzifə");
-        tmodel.addColumn("Status");
+        tmodel.addColumn("Ölçü vahidi");
+        tmodel.addColumn("Ştrix Kod");
+        tmodel.addColumn("Malın Sinfi");
+        tmodel.addColumn("Malın Qrupu");
+        tmodel.addColumn("Malın Növü");
 
         jTableMallar.setAutoResizeMode(jTableMallar.AUTO_RESIZE_ALL_COLUMNS);
         jTableMallar.setRowHeight(20);
@@ -48,12 +48,12 @@ public final class ScreenMain extends javax.swing.JFrame {
 
             tmodel.insertRow(jTableMallar.getRowCount(), new Object[]{
                 b.getAdi(),
-                b.getStrixKod(),
                 b.getIdProperties().getAdi(),
+                b.getStrixKod(),
                 b.getIdMalNovu().getIdMalQrupu().getIdMalSinfi().getAdi(),
                 b.getIdMalNovu().getIdMalQrupu().getAdi(),
                 b.getIdMalNovu().getAdi(),
-                b.getIdProperties().getAdi(),});
+            });
         }
     }
 
@@ -241,7 +241,9 @@ public final class ScreenMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        ScreenMallarAddEdit d = new ScreenMallarAddEdit(this, rootPaneCheckingEnabled, em);
+        d.setVisible(true);
+        FillTheMallarTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
