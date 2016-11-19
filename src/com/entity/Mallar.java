@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Mallar.findAll", query = "SELECT m FROM Mallar m")
     , @NamedQuery(name = "Mallar.findByIdMallar", query = "SELECT m FROM Mallar m WHERE m.idMallar = :idMallar")
     , @NamedQuery(name = "Mallar.findByAdi", query = "SELECT m FROM Mallar m WHERE m.adi = :adi")
-    , @NamedQuery(name = "Mallar.findByStrixKod", query = "SELECT m FROM Mallar m WHERE m.strixKod = :strixKod")})
+    , @NamedQuery(name = "Mallar.findByStrixKod", query = "SELECT m FROM Mallar m WHERE m.strixKod = :strixKod")
+    , @NamedQuery(name = "Mallar.findByMiqdari", query = "SELECT m FROM Mallar m WHERE m.miqdari = :miqdari")})
 public class Mallar implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,6 +47,9 @@ public class Mallar implements Serializable {
     @Basic(optional = false)
     @Column(name = "StrixKod")
     private String strixKod;
+    @Basic(optional = false)
+    @Column(name = "Miqdari")
+    private String miqdari;
     @JoinColumn(name = "idMalNovu", referencedColumnName = "idMalNovu")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Malnovu idMalNovu;
@@ -60,10 +64,11 @@ public class Mallar implements Serializable {
         this.idMallar = idMallar;
     }
 
-    public Mallar(Integer idMallar, String adi, String strixKod) {
+    public Mallar(Integer idMallar, String adi, String strixKod, String miqdari) {
         this.idMallar = idMallar;
         this.adi = adi;
         this.strixKod = strixKod;
+        this.miqdari = miqdari;
     }
 
     public Integer getIdMallar() {
@@ -88,6 +93,14 @@ public class Mallar implements Serializable {
 
     public void setStrixKod(String strixKod) {
         this.strixKod = strixKod;
+    }
+
+    public String getMiqdari() {
+        return miqdari;
+    }
+
+    public void setMiqdari(String miqdari) {
+        this.miqdari = miqdari;
     }
 
     public Malnovu getIdMalNovu() {

@@ -25,9 +25,12 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
     private List<Malnovu> ListOfMalNovu;
     private Malnovu selectedMalNovu;
 
-    public ScreenMallarAddEdit(java.awt.Frame parent, boolean modal, EntityManager em) {
+    Mallar m;
+
+    public ScreenMallarAddEdit(java.awt.Frame parent, boolean modal, EntityManager em, Mallar m) {
         super(parent, modal);
         initComponents();
+        this.m = m;
         this.em = em;
         ListofMembers = em.createNamedQuery("Members.findByIsActive", Members.class)
                 .setParameter("isActive", "1")
@@ -36,6 +39,15 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
     }
 
     public void jcom() {
+
+        if (m == null) {
+
+        } else {
+            jTextFieldAdi.setText(m.getAdi());
+            jTextFieldMiqdari.setText(m.getMiqdari());
+            jTextFieldStrixKod.setText(m.getStrixKod());
+        }
+
         jComboBoxOlcuVahidi.removeAllItems();
         ListOfMainproperties = em.createNamedQuery("Mainproperties.findAll", Mainproperties.class)
                 .getResultList();
@@ -70,6 +82,8 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jComboBoxOlcuVahidiAlt = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        jTextFieldMiqdari = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -137,6 +151,11 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setText("Ləğv Et");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jComboBoxOlcuVahidiAlt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jComboBoxOlcuVahidiAlt.addActionListener(new java.awt.event.ActionListener() {
@@ -144,6 +163,11 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
                 jComboBoxOlcuVahidiAltActionPerformed(evt);
             }
         });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("Miqdarı");
+
+        jTextFieldMiqdari.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -181,7 +205,11 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxOlcuVahidiAlt, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxOlcuVahidi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jComboBoxOlcuVahidi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldMiqdari)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -200,6 +228,10 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextFieldMiqdari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -298,16 +330,35 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
     }//GEN-LAST:event_jComboBoxMAlNovuActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        em.getTransaction().begin();
-        Mallar d = new Mallar(0);
-        d.setAdi(jTextFieldAdi.getText());
-        d.setIdMalNovu(em.find(Malnovu.class, selectedMalNovu.getIdMalNovu()));
-        d.setStrixKod(jTextFieldStrixKod.getText());
-        d.setIdProperties(em.find(Properties.class, selectedPropertiesAlt.getIdProperties()));
-        em.persist(d);
-        em.getTransaction().commit();
-        this.dispose();
+        if (m == null) {
+            em.getTransaction().begin();
+            Mallar d = new Mallar(0);
+            d.setAdi(jTextFieldAdi.getText());
+            d.setIdMalNovu(em.find(Malnovu.class, selectedMalNovu.getIdMalNovu()));
+            d.setStrixKod(jTextFieldStrixKod.getText());
+            d.setMiqdari(jTextFieldMiqdari.getText());
+            d.setIdProperties(em.find(Properties.class, selectedPropertiesAlt.getIdProperties()));
+            em.persist(d);
+            em.getTransaction().commit();
+            this.dispose();
+        } else {
+            em.getTransaction().begin();
+            Mallar d = new Mallar();
+            d.setIdMallar(m.getIdMallar());
+            d.setAdi(jTextFieldAdi.getText());
+            d.setIdMalNovu(em.find(Malnovu.class, selectedMalNovu.getIdMalNovu()));
+            d.setStrixKod(jTextFieldStrixKod.getText());
+            d.setMiqdari(jTextFieldMiqdari.getText());
+            d.setIdProperties(em.find(Properties.class, selectedPropertiesAlt.getIdProperties()));
+            em.merge(d);
+            em.getTransaction().commit();
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -323,8 +374,10 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldAdi;
+    private javax.swing.JTextField jTextFieldMiqdari;
     private javax.swing.JTextField jTextFieldStrixKod;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,6 +14,7 @@ public final class ScreenMain extends javax.swing.JFrame {
     private final EntityManagerFactory emf;
     private DefaultTableModel tmodel;
     private List<Mallar> ListOfMallar;
+    private Mallar selectedMallar;
 
     public ScreenMain() {
         initComponents();
@@ -143,6 +144,11 @@ public final class ScreenMain extends javax.swing.JFrame {
 
             }
         ));
+        jTableMallar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMallarMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableMallar);
 
         jMenuBar1.setBackground(new java.awt.Color(202, 151, 119));
@@ -241,8 +247,9 @@ public final class ScreenMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ScreenMallarAddEdit d = new ScreenMallarAddEdit(this, rootPaneCheckingEnabled, em);
+        ScreenMallarAddEdit d = new ScreenMallarAddEdit(this, rootPaneCheckingEnabled, em, null);
         d.setVisible(true);
+        em.clear();
         FillTheMallarTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -270,6 +277,18 @@ public final class ScreenMain extends javax.swing.JFrame {
         ScreenMalSinifQrupNov d = new ScreenMalSinifQrupNov(this, rootPaneCheckingEnabled, em);
         d.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jTableMallarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMallarMouseClicked
+        if (evt.getClickCount() == 2) {
+            DefaultTableModel model = (DefaultTableModel) jTableMallar.getModel();
+            int index = jTableMallar.getSelectedRow();
+            selectedMallar = ListOfMallar.get(index);
+            ScreenMallarAddEdit d = new ScreenMallarAddEdit(null, rootPaneCheckingEnabled, em, selectedMallar);
+            d.setVisible(true);
+            em.clear();
+            FillTheMallarTable();
+        }
+    }//GEN-LAST:event_jTableMallarMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
