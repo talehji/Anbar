@@ -41,6 +41,7 @@ public final class ScreenMalSinifQrupNov extends javax.swing.JDialog {
 
     public void jcom() {
         jComboBoxMalsinfi.removeAllItems();
+        jComboBoxMalSinfiChange.removeAllItems();
         ListOfMalsinfi = em.createNamedQuery("Malsinfi.findAll", Malsinfi.class).getResultList();
         for (Malsinfi ms : ListOfMalsinfi) {
             jComboBoxMalsinfi.addItem(ms.getAdi());
@@ -186,6 +187,11 @@ public final class ScreenMalSinifQrupNov extends javax.swing.JDialog {
         jTabbedPane1.addTab("      Daxil et      ", jPanel2);
 
         jTextFieldMalNovuChange.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTextFieldMalNovuChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldMalNovuChangeActionPerformed(evt);
+            }
+        });
 
         jComboBoxmalNovuChange.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jComboBoxmalNovuChange.addActionListener(new java.awt.event.ActionListener() {
@@ -199,6 +205,11 @@ public final class ScreenMalSinifQrupNov extends javax.swing.JDialog {
         jLabel4.setText("Mal Növü");
 
         jTextFieldMalQrupuChange.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTextFieldMalQrupuChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldMalQrupuChangeActionPerformed(evt);
+            }
+        });
 
         jComboBoxMalQrupuChange.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jComboBoxMalQrupuChange.addActionListener(new java.awt.event.ActionListener() {
@@ -306,7 +317,15 @@ public final class ScreenMalSinifQrupNov extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldMalSinfiChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMalSinfiChangeActionPerformed
-        // TODO add your handling code here:
+        em.getTransaction().begin();
+        Malsinfi ms  = new Malsinfi();
+        ms.setIdMalSinfi(selectedMalsinfiChange.getIdMalSinfi());
+        ms.setAdi(jTextFieldMalSinfiChange.getText());
+        em.merge(ms);
+        em.getTransaction().commit();
+        em.clear();
+        jTextFieldMalSinfiChange.setText(null);
+        jcom();
     }//GEN-LAST:event_jTextFieldMalSinfiChangeActionPerformed
 
     private void jTextFieldMalSinfiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMalSinfiActionPerformed
@@ -419,6 +438,32 @@ public final class ScreenMalSinifQrupNov extends javax.swing.JDialog {
         } else {
         }
     }//GEN-LAST:event_jComboBoxmalNovuChangeActionPerformed
+
+    private void jTextFieldMalQrupuChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMalQrupuChangeActionPerformed
+        em.getTransaction().begin();
+        Malqrupu mq = new Malqrupu();
+        mq.setIdMalQrupu(selectedMalQrupuChange.getIdMalQrupu());
+        mq.setAdi(jTextFieldMalQrupuChange.getText());
+        mq.setIdMalSinfi(em.find(Malsinfi.class, selectedMalsinfiChange.getIdMalSinfi()));
+        em.merge(mq);
+        em.getTransaction().commit();
+        em.clear();
+        jTextFieldMalQrupuChange.setText(null);
+        jcom();
+    }//GEN-LAST:event_jTextFieldMalQrupuChangeActionPerformed
+
+    private void jTextFieldMalNovuChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMalNovuChangeActionPerformed
+        em.getTransaction().begin();
+        Malnovu mn = new Malnovu();
+        mn.setIdMalNovu(selectedMalNovuChange.getIdMalNovu());
+        mn.setAdi(jTextFieldMalNovuChange.getText());
+        mn.setIdMalQrupu(em.find(Malqrupu.class, selectedMalQrupuChange.getIdMalQrupu()));
+        em.merge(mn);
+        em.getTransaction().commit();
+        em.clear();
+        jTextFieldMalNovuChange.setText(null);
+        jcom();
+    }//GEN-LAST:event_jTextFieldMalNovuChangeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
