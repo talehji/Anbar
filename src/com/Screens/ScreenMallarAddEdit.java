@@ -47,13 +47,15 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
             jTextFieldMiqdari.setText(m.getMiqdari());
             jTextFieldStrixKod.setText(m.getStrixKod());
         }
+            jComboBoxOlcuVahidiAlt.removeAllItems();
+            ListOfProperties = em.createNamedQuery("Properties.findByPairentId", Properties.class)
+                    .setParameter("pairentId", 2)
+                    .getResultList();
+            ListOfProperties.forEach((p) -> {
+                jComboBoxOlcuVahidiAlt.addItem(p.getAdi());
+            });
 
-        jComboBoxOlcuVahidi.removeAllItems();
-        ListOfMainproperties = em.createNamedQuery("Mainproperties.findAll", Mainproperties.class)
-                .getResultList();
-        ListOfMainproperties.forEach((mp) -> {
-            jComboBoxOlcuVahidi.addItem(mp.getName());
-        });
+
 
         jComboBoxMalSinfi.removeAllItems();
         ListOfMalsinfi = em.createNamedQuery("Malsinfi.findAll", Malsinfi.class).getResultList();
@@ -70,7 +72,6 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jTextFieldAdi = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jComboBoxOlcuVahidi = new javax.swing.JComboBox<>();
         jTextFieldStrixKod = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -98,13 +99,6 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Ölçü vahidi");
-
-        jComboBoxOlcuVahidi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBoxOlcuVahidi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxOlcuVahidiActionPerformed(evt);
-            }
-        });
 
         jTextFieldStrixKod.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -203,9 +197,7 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxOlcuVahidiAlt, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxOlcuVahidi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jComboBoxOlcuVahidiAlt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -221,13 +213,8 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
                     .addComponent(jTextFieldAdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jComboBoxOlcuVahidi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxOlcuVahidiAlt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jComboBoxOlcuVahidiAlt)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -269,21 +256,6 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jComboBoxOlcuVahidiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxOlcuVahidiActionPerformed
-        if (jComboBoxOlcuVahidi.getSelectedIndex() > -1) {
-            jComboBoxOlcuVahidiAlt.removeAllItems();
-            selectedMainProperties = ListOfMainproperties.get(jComboBoxOlcuVahidi.getSelectedIndex());
-            ListOfProperties = em.createNamedQuery("Properties.findByPairentId", Properties.class)
-                    .setParameter("pairentId", selectedMainProperties.getIdMainProperties())
-                    .getResultList();
-            ListOfProperties.forEach((p) -> {
-                jComboBoxOlcuVahidiAlt.addItem(p.getAdi());
-            });
-        } else {
-            jComboBoxOlcuVahidiAlt.removeAllItems();
-        }
-    }//GEN-LAST:event_jComboBoxOlcuVahidiActionPerformed
 
     private void jComboBoxOlcuVahidiAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxOlcuVahidiAltActionPerformed
         if (jComboBoxOlcuVahidiAlt.getSelectedIndex() > -1) {
@@ -366,7 +338,6 @@ public final class ScreenMallarAddEdit extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> jComboBoxMAlNovu;
     private javax.swing.JComboBox<String> jComboBoxMalQrupu;
     private javax.swing.JComboBox<String> jComboBoxMalSinfi;
-    private javax.swing.JComboBox<String> jComboBoxOlcuVahidi;
     private javax.swing.JComboBox<String> jComboBoxOlcuVahidiAlt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

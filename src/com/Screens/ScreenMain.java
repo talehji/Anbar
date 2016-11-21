@@ -53,8 +53,7 @@ public final class ScreenMain extends javax.swing.JFrame {
                 b.getStrixKod(),
                 b.getIdMalNovu().getIdMalQrupu().getIdMalSinfi().getAdi(),
                 b.getIdMalNovu().getIdMalQrupu().getAdi(),
-                b.getIdMalNovu().getAdi(),
-            });
+                b.getIdMalNovu().getAdi(),});
         }
     }
 
@@ -62,11 +61,14 @@ public final class ScreenMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMallar = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -80,6 +82,15 @@ public final class ScreenMain extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
+
+        jMenuItem5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenuItem5.setText("Anbara əlavə et");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem5);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Anbar");
@@ -136,6 +147,18 @@ public final class ScreenMain extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton4);
 
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Icon/coal-power-plant-icon.png"))); // NOI18N
+        jButton5.setToolTipText("Fimra");
+        jButton5.setFocusable(false);
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton5);
+
         jTableMallar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -144,6 +167,7 @@ public final class ScreenMain extends javax.swing.JFrame {
 
             }
         ));
+        jTableMallar.setComponentPopupMenu(jPopupMenu1);
         jTableMallar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableMallarMouseClicked(evt);
@@ -290,6 +314,21 @@ public final class ScreenMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableMallarMouseClicked
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTableMallar.getModel();
+        int index = jTableMallar.getSelectedRow();
+        selectedMallar = ListOfMallar.get(index);
+        ScreenMalAlQaytarAddEdit d = new ScreenMalAlQaytarAddEdit(this, rootPaneCheckingEnabled, em, selectedMallar);
+        d.setVisible(true);
+        em.clear();
+        FillTheMallarTable();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        ScreenFirma d = new ScreenFirma(this, true, em);
+        d.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -321,6 +360,7 @@ public final class ScreenMain extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -332,6 +372,8 @@ public final class ScreenMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableMallar;
     private javax.swing.JToolBar jToolBar1;
