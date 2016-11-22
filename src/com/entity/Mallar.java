@@ -6,7 +6,9 @@
 package com.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,8 +19,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -50,12 +54,20 @@ public class Mallar implements Serializable {
     @Basic(optional = false)
     @Column(name = "Miqdari")
     private String miqdari;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar", fetch = FetchType.LAZY)
+    private Collection<Magazamubadile> magazamubadileCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar", fetch = FetchType.LAZY)
+    private Collection<Malalisqeyiqayt> malalisqeyiqaytCollection;
     @JoinColumn(name = "idMalNovu", referencedColumnName = "idMalNovu")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Malnovu idMalNovu;
     @JoinColumn(name = "idProperties", referencedColumnName = "idProperties")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Properties idProperties;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar", fetch = FetchType.LAZY)
+    private Collection<Malsatisgeriqay> malsatisgeriqayCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMallar", fetch = FetchType.LAZY)
+    private Collection<Zayitmis> zayitmisCollection;
 
     public Mallar() {
     }
@@ -103,6 +115,24 @@ public class Mallar implements Serializable {
         this.miqdari = miqdari;
     }
 
+    @XmlTransient
+    public Collection<Magazamubadile> getMagazamubadileCollection() {
+        return magazamubadileCollection;
+    }
+
+    public void setMagazamubadileCollection(Collection<Magazamubadile> magazamubadileCollection) {
+        this.magazamubadileCollection = magazamubadileCollection;
+    }
+
+    @XmlTransient
+    public Collection<Malalisqeyiqayt> getMalalisqeyiqaytCollection() {
+        return malalisqeyiqaytCollection;
+    }
+
+    public void setMalalisqeyiqaytCollection(Collection<Malalisqeyiqayt> malalisqeyiqaytCollection) {
+        this.malalisqeyiqaytCollection = malalisqeyiqaytCollection;
+    }
+
     public Malnovu getIdMalNovu() {
         return idMalNovu;
     }
@@ -117,6 +147,24 @@ public class Mallar implements Serializable {
 
     public void setIdProperties(Properties idProperties) {
         this.idProperties = idProperties;
+    }
+
+    @XmlTransient
+    public Collection<Malsatisgeriqay> getMalsatisgeriqayCollection() {
+        return malsatisgeriqayCollection;
+    }
+
+    public void setMalsatisgeriqayCollection(Collection<Malsatisgeriqay> malsatisgeriqayCollection) {
+        this.malsatisgeriqayCollection = malsatisgeriqayCollection;
+    }
+
+    @XmlTransient
+    public Collection<Zayitmis> getZayitmisCollection() {
+        return zayitmisCollection;
+    }
+
+    public void setZayitmisCollection(Collection<Zayitmis> zayitmisCollection) {
+        this.zayitmisCollection = zayitmisCollection;
     }
 
     @Override

@@ -36,7 +36,6 @@ public class Mainproperties implements Serializable {
     @Basic(optional = false)
     @Column(name = "idMainProperties")
     private Integer idMainProperties;
-    @Basic(optional = false)
     @Column(name = "Name")
     private String name;
 
@@ -45,11 +44,6 @@ public class Mainproperties implements Serializable {
 
     public Mainproperties(Integer idMainProperties) {
         this.idMainProperties = idMainProperties;
-    }
-
-    public Mainproperties(Integer idMainProperties, String name) {
-        this.idMainProperties = idMainProperties;
-        this.name = name;
     }
 
     public Integer getIdMainProperties() {

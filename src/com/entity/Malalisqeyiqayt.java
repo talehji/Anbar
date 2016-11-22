@@ -10,9 +10,12 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -31,19 +34,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Malalisqeyiqayt.findAll", query = "SELECT m FROM Malalisqeyiqayt m")
     , @NamedQuery(name = "Malalisqeyiqayt.findByIdMalAlisQeyiQayt", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.idMalAlisQeyiQayt = :idMalAlisQeyiQayt")
     , @NamedQuery(name = "Malalisqeyiqayt.findByTarix", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.tarix = :tarix")
-    , @NamedQuery(name = "Malalisqeyiqayt.findByIdFirma", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.idFirma = :idFirma")
-    , @NamedQuery(name = "Malalisqeyiqayt.findByIdMallar", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.idMallar = :idMallar")
-    , @NamedQuery(name = "Malalisqeyiqayt.findByIdAnbar", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.idAnbar = :idAnbar")
-    , @NamedQuery(name = "Malalisqeyiqayt.findByIdProperties", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.idProperties = :idProperties")
     , @NamedQuery(name = "Malalisqeyiqayt.findByMiqdari", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.miqdari = :miqdari")
     , @NamedQuery(name = "Malalisqeyiqayt.findByAlisQiymeti", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.alisQiymeti = :alisQiymeti")
     , @NamedQuery(name = "Malalisqeyiqayt.findByEdv", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.edv = :edv")
-    , @NamedQuery(name = "Malalisqeyiqayt.findByIdKassaAlisQIyCem", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.idKassaAlisQIyCem = :idKassaAlisQIyCem")
-    , @NamedQuery(name = "Malalisqeyiqayt.findByIdKassaCemEDV", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.idKassaCemEDV = :idKassaCemEDV")
-    , @NamedQuery(name = "Malalisqeyiqayt.findByIdMembersQebul", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.idMembersQebul = :idMembersQebul")
     , @NamedQuery(name = "Malalisqeyiqayt.findByInvoysNo", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.invoysNo = :invoysNo")
-    , @NamedQuery(name = "Malalisqeyiqayt.findByIdMembersSenedYigan", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.idMembersSenedYigan = :idMembersSenedYigan")
-    , @NamedQuery(name = "Malalisqeyiqayt.findByIdMembersTesdiqEden", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.idMembersTesdiqEden = :idMembersTesdiqEden")})
+    , @NamedQuery(name = "Malalisqeyiqayt.findByPairentid", query = "SELECT m FROM Malalisqeyiqayt m WHERE m.pairentid = :pairentid")})
 public class Malalisqeyiqayt implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,18 +52,6 @@ public class Malalisqeyiqayt implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date tarix;
     @Basic(optional = false)
-    @Column(name = "idFirma")
-    private int idFirma;
-    @Basic(optional = false)
-    @Column(name = "idMallar")
-    private int idMallar;
-    @Basic(optional = false)
-    @Column(name = "idAnbar")
-    private int idAnbar;
-    @Basic(optional = false)
-    @Column(name = "idProperties")
-    private int idProperties;
-    @Basic(optional = false)
     @Column(name = "Miqdari")
     private String miqdari;
     @Basic(optional = false)
@@ -78,23 +61,38 @@ public class Malalisqeyiqayt implements Serializable {
     @Column(name = "EDV")
     private double edv;
     @Basic(optional = false)
-    @Column(name = "idKassaAlisQIyCem")
-    private int idKassaAlisQIyCem;
-    @Basic(optional = false)
-    @Column(name = "idKassaCemEDV")
-    private int idKassaCemEDV;
-    @Basic(optional = false)
-    @Column(name = "idMembersQebul")
-    private int idMembersQebul;
-    @Basic(optional = false)
     @Column(name = "InvoysNo")
     private String invoysNo;
     @Basic(optional = false)
-    @Column(name = "idMembersSenedYigan")
-    private int idMembersSenedYigan;
-    @Basic(optional = false)
-    @Column(name = "idMembersTesdiqEden")
-    private int idMembersTesdiqEden;
+    @Column(name = "Pairentid")
+    private int pairentid;
+    @JoinColumn(name = "idFirma", referencedColumnName = "idMagAnFir")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Maganfir idFirma;
+    @JoinColumn(name = "idMallar", referencedColumnName = "idMallar")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Mallar idMallar;
+    @JoinColumn(name = "idAnbar", referencedColumnName = "idMagAnFir")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Maganfir idAnbar;
+    @JoinColumn(name = "idProperties", referencedColumnName = "idProperties")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Properties idProperties;
+    @JoinColumn(name = "idKassaAlisQIyCem", referencedColumnName = "idKassa")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Kassa idKassaAlisQIyCem;
+    @JoinColumn(name = "idKassaCemEDV", referencedColumnName = "idKassa")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Kassa idKassaCemEDV;
+    @JoinColumn(name = "idMembersQebul", referencedColumnName = "idMembers")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Members idMembersQebul;
+    @JoinColumn(name = "idMembersSenedYigan", referencedColumnName = "idMembers")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Members idMembersSenedYigan;
+    @JoinColumn(name = "idMembersTesdiqEden", referencedColumnName = "idMembers")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Members idMembersTesdiqEden;
 
     public Malalisqeyiqayt() {
     }
@@ -103,22 +101,14 @@ public class Malalisqeyiqayt implements Serializable {
         this.idMalAlisQeyiQayt = idMalAlisQeyiQayt;
     }
 
-    public Malalisqeyiqayt(Integer idMalAlisQeyiQayt, Date tarix, int idFirma, int idMallar, int idAnbar, int idProperties, String miqdari, double alisQiymeti, double edv, int idKassaAlisQIyCem, int idKassaCemEDV, int idMembersQebul, String invoysNo, int idMembersSenedYigan, int idMembersTesdiqEden) {
+    public Malalisqeyiqayt(Integer idMalAlisQeyiQayt, Date tarix, String miqdari, double alisQiymeti, double edv, String invoysNo, int pairentid) {
         this.idMalAlisQeyiQayt = idMalAlisQeyiQayt;
         this.tarix = tarix;
-        this.idFirma = idFirma;
-        this.idMallar = idMallar;
-        this.idAnbar = idAnbar;
-        this.idProperties = idProperties;
         this.miqdari = miqdari;
         this.alisQiymeti = alisQiymeti;
         this.edv = edv;
-        this.idKassaAlisQIyCem = idKassaAlisQIyCem;
-        this.idKassaCemEDV = idKassaCemEDV;
-        this.idMembersQebul = idMembersQebul;
         this.invoysNo = invoysNo;
-        this.idMembersSenedYigan = idMembersSenedYigan;
-        this.idMembersTesdiqEden = idMembersTesdiqEden;
+        this.pairentid = pairentid;
     }
 
     public Integer getIdMalAlisQeyiQayt() {
@@ -135,38 +125,6 @@ public class Malalisqeyiqayt implements Serializable {
 
     public void setTarix(Date tarix) {
         this.tarix = tarix;
-    }
-
-    public int getIdFirma() {
-        return idFirma;
-    }
-
-    public void setIdFirma(int idFirma) {
-        this.idFirma = idFirma;
-    }
-
-    public int getIdMallar() {
-        return idMallar;
-    }
-
-    public void setIdMallar(int idMallar) {
-        this.idMallar = idMallar;
-    }
-
-    public int getIdAnbar() {
-        return idAnbar;
-    }
-
-    public void setIdAnbar(int idAnbar) {
-        this.idAnbar = idAnbar;
-    }
-
-    public int getIdProperties() {
-        return idProperties;
-    }
-
-    public void setIdProperties(int idProperties) {
-        this.idProperties = idProperties;
     }
 
     public String getMiqdari() {
@@ -193,30 +151,6 @@ public class Malalisqeyiqayt implements Serializable {
         this.edv = edv;
     }
 
-    public int getIdKassaAlisQIyCem() {
-        return idKassaAlisQIyCem;
-    }
-
-    public void setIdKassaAlisQIyCem(int idKassaAlisQIyCem) {
-        this.idKassaAlisQIyCem = idKassaAlisQIyCem;
-    }
-
-    public int getIdKassaCemEDV() {
-        return idKassaCemEDV;
-    }
-
-    public void setIdKassaCemEDV(int idKassaCemEDV) {
-        this.idKassaCemEDV = idKassaCemEDV;
-    }
-
-    public int getIdMembersQebul() {
-        return idMembersQebul;
-    }
-
-    public void setIdMembersQebul(int idMembersQebul) {
-        this.idMembersQebul = idMembersQebul;
-    }
-
     public String getInvoysNo() {
         return invoysNo;
     }
@@ -225,19 +159,83 @@ public class Malalisqeyiqayt implements Serializable {
         this.invoysNo = invoysNo;
     }
 
-    public int getIdMembersSenedYigan() {
+    public int getPairentid() {
+        return pairentid;
+    }
+
+    public void setPairentid(int pairentid) {
+        this.pairentid = pairentid;
+    }
+
+    public Maganfir getIdFirma() {
+        return idFirma;
+    }
+
+    public void setIdFirma(Maganfir idFirma) {
+        this.idFirma = idFirma;
+    }
+
+    public Mallar getIdMallar() {
+        return idMallar;
+    }
+
+    public void setIdMallar(Mallar idMallar) {
+        this.idMallar = idMallar;
+    }
+
+    public Maganfir getIdAnbar() {
+        return idAnbar;
+    }
+
+    public void setIdAnbar(Maganfir idAnbar) {
+        this.idAnbar = idAnbar;
+    }
+
+    public Properties getIdProperties() {
+        return idProperties;
+    }
+
+    public void setIdProperties(Properties idProperties) {
+        this.idProperties = idProperties;
+    }
+
+    public Kassa getIdKassaAlisQIyCem() {
+        return idKassaAlisQIyCem;
+    }
+
+    public void setIdKassaAlisQIyCem(Kassa idKassaAlisQIyCem) {
+        this.idKassaAlisQIyCem = idKassaAlisQIyCem;
+    }
+
+    public Kassa getIdKassaCemEDV() {
+        return idKassaCemEDV;
+    }
+
+    public void setIdKassaCemEDV(Kassa idKassaCemEDV) {
+        this.idKassaCemEDV = idKassaCemEDV;
+    }
+
+    public Members getIdMembersQebul() {
+        return idMembersQebul;
+    }
+
+    public void setIdMembersQebul(Members idMembersQebul) {
+        this.idMembersQebul = idMembersQebul;
+    }
+
+    public Members getIdMembersSenedYigan() {
         return idMembersSenedYigan;
     }
 
-    public void setIdMembersSenedYigan(int idMembersSenedYigan) {
+    public void setIdMembersSenedYigan(Members idMembersSenedYigan) {
         this.idMembersSenedYigan = idMembersSenedYigan;
     }
 
-    public int getIdMembersTesdiqEden() {
+    public Members getIdMembersTesdiqEden() {
         return idMembersTesdiqEden;
     }
 
-    public void setIdMembersTesdiqEden(int idMembersTesdiqEden) {
+    public void setIdMembersTesdiqEden(Members idMembersTesdiqEden) {
         this.idMembersTesdiqEden = idMembersTesdiqEden;
     }
 

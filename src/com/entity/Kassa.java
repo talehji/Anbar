@@ -70,6 +70,10 @@ public class Kassa implements Serializable {
     private String qeyd;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassa", fetch = FetchType.LAZY)
     private Collection<Kreditor> kreditorCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassaAlisQIyCem", fetch = FetchType.LAZY)
+    private Collection<Malalisqeyiqayt> malalisqeyiqaytCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassaCemEDV", fetch = FetchType.LAZY)
+    private Collection<Malalisqeyiqayt> malalisqeyiqaytCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassa", fetch = FetchType.LAZY)
     private Collection<Debitor> debitorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKassaSatis", fetch = FetchType.LAZY)
@@ -157,6 +161,24 @@ public class Kassa implements Serializable {
 
     public void setKreditorCollection(Collection<Kreditor> kreditorCollection) {
         this.kreditorCollection = kreditorCollection;
+    }
+
+    @XmlTransient
+    public Collection<Malalisqeyiqayt> getMalalisqeyiqaytCollection() {
+        return malalisqeyiqaytCollection;
+    }
+
+    public void setMalalisqeyiqaytCollection(Collection<Malalisqeyiqayt> malalisqeyiqaytCollection) {
+        this.malalisqeyiqaytCollection = malalisqeyiqaytCollection;
+    }
+
+    @XmlTransient
+    public Collection<Malalisqeyiqayt> getMalalisqeyiqaytCollection1() {
+        return malalisqeyiqaytCollection1;
+    }
+
+    public void setMalalisqeyiqaytCollection1(Collection<Malalisqeyiqayt> malalisqeyiqaytCollection1) {
+        this.malalisqeyiqaytCollection1 = malalisqeyiqaytCollection1;
     }
 
     @XmlTransient

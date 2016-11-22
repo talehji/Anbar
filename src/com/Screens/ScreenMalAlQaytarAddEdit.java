@@ -5,6 +5,7 @@
  */
 package com.Screens;
 
+import com.entity.Kassa;
 import com.entity.Maganfir;
 import com.entity.Malalisqeyiqayt;
 import com.entity.Mallar;
@@ -35,13 +36,13 @@ public final class ScreenMalAlQaytarAddEdit extends javax.swing.JDialog {
     private Members selectedMaliQebulEden;
     private Members selectedSenedleriYigdi;
     private Members selectedTesdiqEtdi;
-    Mallar m;
-    public ScreenMalAlQaytarAddEdit(java.awt.Frame parent, boolean modal, EntityManager em, Mallar m) {
+    
+    
+    
+    public ScreenMalAlQaytarAddEdit(java.awt.Frame parent, boolean modal, EntityManager em) {
         super(parent, modal);
         initComponents();
         this.em = em;
-        this.m = m;
-        jTextFieldMallar.setText(m.getAdi());
         ListofAnbar = em.createNamedQuery("Maganfir.findByPairentId", Maganfir.class)
                 .setParameter("pairentId", "1")
                 .getResultList();
@@ -95,7 +96,6 @@ public final class ScreenMalAlQaytarAddEdit extends javax.swing.JDialog {
         jComboBoxSatici = new javax.swing.JComboBox<>();
         jButtonYaddaSaxla = new javax.swing.JButton();
         jButtonBagla = new javax.swing.JButton();
-        jTextFieldMallar = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jComboBoxAnbar = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
@@ -118,6 +118,7 @@ public final class ScreenMalAlQaytarAddEdit extends javax.swing.JDialog {
         jComboBoxTesdiqEtdi = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         jTextFieldMiqdarı = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -152,8 +153,6 @@ public final class ScreenMalAlQaytarAddEdit extends javax.swing.JDialog {
                 jButtonBaglaActionPerformed(evt);
             }
         });
-
-        jTextFieldMallar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Anbar");
@@ -235,85 +234,89 @@ public final class ScreenMalAlQaytarAddEdit extends javax.swing.JDialog {
 
         jTextFieldMiqdarı.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setText("Seç");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButtonYaddaSaxla, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonBagla, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonYaddaSaxla, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBoxOlcuVahidi, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonBagla, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jComboBoxOlcuVahidi, 0, 336, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldMiqdarı, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextFieldMallar)
+                        .addComponent(jTextFieldMiqdarı, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBoxAnbar, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldAdi, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBoxSatici, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldAlışQiymetiEded, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldEDVEded, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldAlisQiymetiCem, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldEDVCem, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBoxMaliQebulEden, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldİnvoysNo, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBoxSenedleriYigdi, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBoxTesdiqEtdi, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldAdi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxAnbar, 0, 336, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxSatici, 0, 336, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldAlışQiymetiEded, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldEDVEded, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldAlisQiymetiCem, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldEDVCem, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxMaliQebulEden, 0, 336, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldİnvoysNo, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxSenedleriYigdi, 0, 336, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxTesdiqEtdi, 0, 336, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextFieldMallar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextFieldAdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldAdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -390,17 +393,52 @@ public final class ScreenMalAlQaytarAddEdit extends javax.swing.JDialog {
         java.util.Date date = new java.util.Date();
         long t = date.getTime();
         java.sql.Date sqlDate = new java.sql.Date(t);
-        if (m != null) {
-            em.getTransaction().begin();
+        if (SelectedMallar != null) {
             Malalisqeyiqayt maq = new Malalisqeyiqayt(0);
             maq.setTarix(sqlDate);
-            maq.setIdFirma(selectedSatici.getIdMagAnFir());
-            maq.setIdMallar(m.getIdMallar());
-            maq.setIdAnbar(selectedAnbar.getIdMagAnFir());
-            maq.setIdProperties(selectedProperties.getIdProperties());
+            maq.setIdFirma(em.find(Maganfir.class, selectedSatici.getIdMagAnFir()));
+            maq.setIdMallar(em.find(Mallar.class, SelectedMallar.getIdMallar()));
+            maq.setIdAnbar(em.find(Maganfir.class, selectedAnbar.getIdMagAnFir()));
+            maq.setIdProperties(em.find(Properties.class, selectedProperties.getIdProperties()));
             maq.setMiqdari(jTextFieldMiqdarı.getText());
             maq.setAlisQiymeti(Double.parseDouble(jTextFieldAlışQiymetiEded.getText()));
+            maq.setEdv(Double.parseDouble(jTextFieldEDVEded.getText()));
+                        
+            Kassa k = new Kassa(0);
+            k.setTarix(sqlDate);
+            k.setMedaxil(0);
+            k.setMexaric(Double.parseDouble(jTextFieldAlisQiymetiCem.getText()));
+            k.setPairentId("1");
+            k.setInsertId(SelectedMallar.getIdMallar().toString());
+            k.setQeyd("1");
+            em.persist(k);
+            em.getTransaction().begin();
+            em.getTransaction().commit();
+                        
+            Object a = em.createQuery("select max(u.idKassa) from Kassa u", Integer.class).getSingleResult();
+
+            Kassa ke = new Kassa(0);
+            ke.setTarix(sqlDate);
+            ke.setMedaxil(0);
+            ke.setMexaric(Double.parseDouble(jTextFieldEDVCem.getText()));
+            ke.setPairentId("1");
+            ke.setInsertId(SelectedMallar.getIdMallar().toString());
+            ke.setQeyd("2");
+            em.persist(ke);
+            em.getTransaction().begin();
+            em.getTransaction().commit();
+            
+            Object b = em.createQuery("select max(u.idKassa) from Kassa u", Integer.class).getSingleResult();
+            
+            maq.setIdKassaAlisQIyCem(em.find(Kassa.class, a));
+            maq.setIdKassaCemEDV(em.find(Kassa.class, b));
+            maq.setIdMembersQebul(em.find(Members.class, selectedMaliQebulEden.getIdMembers()));
+            maq.setInvoysNo(jTextFieldİnvoysNo.getText());
+            maq.setIdMembersSenedYigan(em.find(Members.class, selectedSenedleriYigdi.getIdMembers()));
+            maq.setIdMembersTesdiqEden(em.find(Members.class, selectedTesdiqEtdi.getIdMembers()));
+            maq.setPairentid(1);
             em.persist(maq);
+            em.getTransaction().begin();
             em.getTransaction().commit();
             this.dispose();
         }
@@ -446,7 +484,15 @@ public final class ScreenMalAlQaytarAddEdit extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jComboBoxTesdiqEtdiActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ScreenAllMallarSelect  d = new ScreenAllMallarSelect(null, rootPaneCheckingEnabled, em);
+        d.setVisible(rootPaneCheckingEnabled);
+        SelectedMallar = d.selectedMallar;
+        jTextFieldAdi.setText(SelectedMallar.getAdi());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBagla;
     private javax.swing.JButton jButtonYaddaSaxla;
     private javax.swing.JComboBox<String> jComboBoxAnbar;
@@ -474,7 +520,6 @@ public final class ScreenMalAlQaytarAddEdit extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldAlışQiymetiEded;
     private javax.swing.JTextField jTextFieldEDVCem;
     private javax.swing.JTextField jTextFieldEDVEded;
-    private javax.swing.JTextField jTextFieldMallar;
     private javax.swing.JTextField jTextFieldMiqdarı;
     private javax.swing.JTextField jTextFieldİnvoysNo;
     // End of variables declaration//GEN-END:variables

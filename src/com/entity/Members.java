@@ -90,6 +90,12 @@ public class Members implements Serializable {
     private Collection<Magazamubadile> magazamubadileCollection2;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersTesdiqEden", fetch = FetchType.LAZY)
     private Collection<Magazamubadile> magazamubadileCollection3;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersQebul", fetch = FetchType.LAZY)
+    private Collection<Malalisqeyiqayt> malalisqeyiqaytCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersSenedYigan", fetch = FetchType.LAZY)
+    private Collection<Malalisqeyiqayt> malalisqeyiqaytCollection1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersTesdiqEden", fetch = FetchType.LAZY)
+    private Collection<Malalisqeyiqayt> malalisqeyiqaytCollection2;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembers", fetch = FetchType.LAZY)
     private Collection<Debitor> debitorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMembersAlan", fetch = FetchType.LAZY)
@@ -262,6 +268,33 @@ public class Members implements Serializable {
 
     public void setMagazamubadileCollection3(Collection<Magazamubadile> magazamubadileCollection3) {
         this.magazamubadileCollection3 = magazamubadileCollection3;
+    }
+
+    @XmlTransient
+    public Collection<Malalisqeyiqayt> getMalalisqeyiqaytCollection() {
+        return malalisqeyiqaytCollection;
+    }
+
+    public void setMalalisqeyiqaytCollection(Collection<Malalisqeyiqayt> malalisqeyiqaytCollection) {
+        this.malalisqeyiqaytCollection = malalisqeyiqaytCollection;
+    }
+
+    @XmlTransient
+    public Collection<Malalisqeyiqayt> getMalalisqeyiqaytCollection1() {
+        return malalisqeyiqaytCollection1;
+    }
+
+    public void setMalalisqeyiqaytCollection1(Collection<Malalisqeyiqayt> malalisqeyiqaytCollection1) {
+        this.malalisqeyiqaytCollection1 = malalisqeyiqaytCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Malalisqeyiqayt> getMalalisqeyiqaytCollection2() {
+        return malalisqeyiqaytCollection2;
+    }
+
+    public void setMalalisqeyiqaytCollection2(Collection<Malalisqeyiqayt> malalisqeyiqaytCollection2) {
+        this.malalisqeyiqaytCollection2 = malalisqeyiqaytCollection2;
     }
 
     @XmlTransient

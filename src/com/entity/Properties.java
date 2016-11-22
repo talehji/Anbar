@@ -51,6 +51,8 @@ public class Properties implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties", fetch = FetchType.LAZY)
     private Collection<Magazamubadile> magazamubadileCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties", fetch = FetchType.LAZY)
+    private Collection<Malalisqeyiqayt> malalisqeyiqaytCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties", fetch = FetchType.LAZY)
     private Collection<Mallar> mallarCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProperties", fetch = FetchType.LAZY)
     private Collection<Members> membersCollection;
@@ -103,6 +105,15 @@ public class Properties implements Serializable {
 
     public void setMagazamubadileCollection(Collection<Magazamubadile> magazamubadileCollection) {
         this.magazamubadileCollection = magazamubadileCollection;
+    }
+
+    @XmlTransient
+    public Collection<Malalisqeyiqayt> getMalalisqeyiqaytCollection() {
+        return malalisqeyiqaytCollection;
+    }
+
+    public void setMalalisqeyiqaytCollection(Collection<Malalisqeyiqayt> malalisqeyiqaytCollection) {
+        this.malalisqeyiqaytCollection = malalisqeyiqaytCollection;
     }
 
     @XmlTransient

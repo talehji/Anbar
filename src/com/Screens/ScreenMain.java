@@ -1,5 +1,6 @@
 package com.Screens;
 
+import com.entity.Malalisqeyiqayt;
 import com.entity.Mallar;
 import java.awt.Font;
 import java.util.List;
@@ -15,16 +16,17 @@ public final class ScreenMain extends javax.swing.JFrame {
     private DefaultTableModel tmodel;
     private List<Mallar> ListOfMallar;
     private Mallar selectedMallar;
+    private List<Malalisqeyiqayt> ListOfMalalisqeyiqayt;
 
     public ScreenMain() {
         initComponents();
         this.setExtendedState(ScreenMain.MAXIMIZED_BOTH);
         emf = Persistence.createEntityManagerFactory("AnbarPU");
         em = emf.createEntityManager();
-        FillTheMallarTable();
+        FillTheMallarAlGeriQaytTable();
     }
 
-    public void FillTheMallarTable() {
+    public void FillTheMallarAlGeriQaytTable() {
         tmodel = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -39,21 +41,21 @@ public final class ScreenMain extends javax.swing.JFrame {
         tmodel.addColumn("Malın Qrupu");
         tmodel.addColumn("Malın Növü");
 
-        jTableMallar.setAutoResizeMode(jTableMallar.AUTO_RESIZE_ALL_COLUMNS);
-        jTableMallar.setRowHeight(20);
-        jTableMallar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        jTableMallar.setModel(tmodel);
-        ListOfMallar = em.createNamedQuery("Mallar.findAll", Mallar.class).getResultList();
+        jTableMalalisqeyiqayt.setAutoResizeMode(jTableMalalisqeyiqayt.AUTO_RESIZE_ALL_COLUMNS);
+        jTableMalalisqeyiqayt.setRowHeight(20);
+        jTableMalalisqeyiqayt.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        jTableMalalisqeyiqayt.setModel(tmodel);
+        ListOfMalalisqeyiqayt = em.createNamedQuery("Malalisqeyiqayt.findAll", Malalisqeyiqayt.class).getResultList();
 
-        for (Mallar b : ListOfMallar) {
+        for (Malalisqeyiqayt b : ListOfMalalisqeyiqayt) {
 
-            tmodel.insertRow(jTableMallar.getRowCount(), new Object[]{
-                b.getAdi(),
+            tmodel.insertRow(jTableMalalisqeyiqayt.getRowCount(), new Object[]{
+                b.getIdAnbar().getAdi(),
                 b.getIdProperties().getAdi(),
-                b.getStrixKod(),
-                b.getIdMalNovu().getIdMalQrupu().getIdMalSinfi().getAdi(),
-                b.getIdMalNovu().getIdMalQrupu().getAdi(),
-                b.getIdMalNovu().getAdi(),});
+                b.getMiqdari(),
+                b.getIdMembersQebul().getAdi(),
+                b.getIdMalAlisQeyiQayt(),
+                b.getMiqdari(),});
         }
     }
 
@@ -62,7 +64,6 @@ public final class ScreenMain extends javax.swing.JFrame {
     private void initComponents() {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -70,7 +71,7 @@ public final class ScreenMain extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableMallar = new javax.swing.JTable();
+        jTableMalalisqeyiqayt = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -79,18 +80,10 @@ public final class ScreenMain extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-
-        jMenuItem5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jMenuItem5.setText("Anbara əlavə et");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jPopupMenu1.add(jMenuItem5);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Anbar");
@@ -159,7 +152,7 @@ public final class ScreenMain extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton5);
 
-        jTableMallar.setModel(new javax.swing.table.DefaultTableModel(
+        jTableMalalisqeyiqayt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -167,13 +160,13 @@ public final class ScreenMain extends javax.swing.JFrame {
 
             }
         ));
-        jTableMallar.setComponentPopupMenu(jPopupMenu1);
-        jTableMallar.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableMalalisqeyiqayt.setComponentPopupMenu(jPopupMenu1);
+        jTableMalalisqeyiqayt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableMallarMouseClicked(evt);
+                jTableMalalisqeyiqaytMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableMallar);
+        jScrollPane1.setViewportView(jTableMalalisqeyiqayt);
 
         jMenuBar1.setBackground(new java.awt.Color(202, 151, 119));
 
@@ -214,6 +207,14 @@ public final class ScreenMain extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jMenuItem4);
+
+        jMenuItem6.setText("Mallar");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem6);
 
         jMenuBar1.add(jMenu4);
 
@@ -271,10 +272,9 @@ public final class ScreenMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ScreenMallarAddEdit d = new ScreenMallarAddEdit(this, rootPaneCheckingEnabled, em, null);
+        ScreenMalAlQaytarAddEdit d = new ScreenMalAlQaytarAddEdit(this, rootPaneCheckingEnabled, em);
         d.setVisible(true);
         em.clear();
-        FillTheMallarTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -302,32 +302,20 @@ public final class ScreenMain extends javax.swing.JFrame {
         d.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jTableMallarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMallarMouseClicked
-        if (evt.getClickCount() == 2) {
-            DefaultTableModel model = (DefaultTableModel) jTableMallar.getModel();
-            int index = jTableMallar.getSelectedRow();
-            selectedMallar = ListOfMallar.get(index);
-            ScreenMallarAddEdit d = new ScreenMallarAddEdit(null, rootPaneCheckingEnabled, em, selectedMallar);
-            d.setVisible(true);
-            em.clear();
-            FillTheMallarTable();
-        }
-    }//GEN-LAST:event_jTableMallarMouseClicked
+    private void jTableMalalisqeyiqaytMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMalalisqeyiqaytMouseClicked
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTableMallar.getModel();
-        int index = jTableMallar.getSelectedRow();
-        selectedMallar = ListOfMallar.get(index);
-        ScreenMalAlQaytarAddEdit d = new ScreenMalAlQaytarAddEdit(this, rootPaneCheckingEnabled, em, selectedMallar);
-        d.setVisible(true);
-        em.clear();
-        FillTheMallarTable();
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jTableMalalisqeyiqaytMouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         ScreenFirma d = new ScreenFirma(this, true, em);
         d.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        ScreenMallar d = new ScreenMallar(this, rootPaneCheckingEnabled, em);
+        d.setVisible(true);
+        em.clear();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -372,10 +360,10 @@ public final class ScreenMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableMallar;
+    private javax.swing.JTable jTableMalalisqeyiqayt;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }
